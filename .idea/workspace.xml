@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fd5c6b46-66c4-4585-b6f0-8fad4b5e701a" name="Changes" comment="Initial commit&#10;Login error">
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Ноутбуки_и_КомпьютерыАксессуары_для_компьютера.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Ноутбуки_и_КомпьютерыАксессуары_для_компьютера_AbxMOTg.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Ноутбуки_и_КомпьютерыКомплектующие.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Ноутбуки_и_КомпьютерыПериферийные_устройства.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Ноутбуки_и_Компютеры.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_Гаджеты.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыАксессуары_для_телефонов.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыАксессуары_для_телефоновНаушники.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыПланшеты_и_электронные_книги.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыПланшеты_и_электронные_книгиПланшеты.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыСмарт-устройства.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыСмарт-устройстваСмарт-часы.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыСмартфоны_и_Гаджеты.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыСмартфоны_и_ГаджетыСмартфоны.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Телевизоры_аудио_и_видео.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Телевизоры_аудио_и_видеоАудио_и_видео_техника.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/category/images/Телевизоры_аудио_и_видеоПроекторы.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/Apple_Watch_Series_8.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/Apple_iPad_Pro_12.9.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/Dell_XPS_15.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/Google_Pixel_8_Pro.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/IPhone_13_Pro.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/IPhone_14.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/IPhone_15_Pro_Max.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/OnePlus_Nord_3.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/Samsung_Galaxy_Buds_Pro.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/Samsung_Galaxy_S23_Ultra.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/Sony_WH-1000XM5.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/Xiaomi_Mi_Band_8.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/media/products/images/Xiaomi_Redmi_Note_12.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/users/filters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djangoProject1/users/migrations/0010_alter_product_image.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/components/CategoryCard.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/components/SubcategoryCard.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/views/CategoryView.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/views/SubcategoryView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject1" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject1/djangoProject1/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/djangoProject1/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Samsung_A51.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject1/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/users/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject1/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject1/users/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/users/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject1/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/users/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject1/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/users/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/CategoryTree.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/CategoryTree.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/Header.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/RegisterForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/RegisterForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/views/CategoryTreeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/views/CategoryTreeView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/views/ProductList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/views/ProductList.vue" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="Vue Composition API Component" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/djangoProject1" value="backend" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/vue-freelance" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;beasyag&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/beasyag/Online-store.git&quot;,
+    &quot;accountId&quot;: &quot;c6ba88ad-6cfd-42ad-a53d-bc996988f629&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2kjjHhOh3LKdvLJ2L8bH1GxrxZn" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python.manage.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bekzat/PycharmProjects&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PyCharm 2024.1.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ],
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Composition API Component&quot;
+    ]
+  }
+}</component>
+  <component name="RunManager" selected="Python.manage">
+    <configuration name="manage" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="PycharmProjects" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (djangoProject1)" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\bekzat\PycharmProjects\djangoProject1\djangoProject1" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/djangoProject1/manage.py" />
+      <option name="PARAMETERS" value="runserver" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="PycharmProjects" type="Python.DjangoServer" factoryName="Django server">
+      <module name="PycharmProjects" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (djangoProject)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="localhost" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
+        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fd5c6b46-66c4-4585-b6f0-8fad4b5e701a" name="Changes" comment="" />
+      <created>1723803801072</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1723803801072</updated>
+      <workItem from="1723803802484" duration="23498000" />
+      <workItem from="1723966372933" duration="21116000" />
+      <workItem from="1724149385309" duration="44766000" />
+      <workItem from="1724453984187" duration="564000" />
+      <workItem from="1724601148593" duration="9630000" />
+      <workItem from="1724671408292" duration="14969000" />
+      <workItem from="1724747411362" duration="19423000" />
+      <workItem from="1724908455706" duration="5206000" />
+      <workItem from="1724956828077" duration="1907000" />
+      <workItem from="1725017151176" duration="22879000" />
+      <workItem from="1725209370063" duration="273000" />
+      <workItem from="1725209703694" duration="3752000" />
+      <workItem from="1725349975609" duration="5749000" />
+      <workItem from="1725442804930" duration="12590000" />
+      <workItem from="1725521517903" duration="33000" />
+      <workItem from="1725521584832" duration="190000" />
+      <workItem from="1725521817462" duration="73000" />
+      <workItem from="1725555264034" duration="5825000" />
+      <workItem from="1725787899964" duration="13802000" />
+      <workItem from="1725878806725" duration="6471000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initial commit&#10;Login error">
+      <option name="closed" value="true" />
+      <created>1725208323682</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1725208323683</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Initial commit" />
+    <MESSAGE value="Initial commit&#10;Login error" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit&#10;Login error" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/PycharmProjects$manage.coverage" NAME="manage Coverage Results" MODIFIED="1725878824297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\bekzat\PycharmProjects\djangoProject1\djangoProject1" />
+  </component>
+</project>
