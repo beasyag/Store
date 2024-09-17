@@ -1,0 +1,335 @@
+Index: djangoProject1/users/models.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.contrib.auth.models import AbstractBaseUser, BaseUserManager\r\nfrom django.db import models\r\nfrom mptt.models import MPTTModel, TreeForeignKey\r\n\r\nclass UserManager(BaseUserManager):\r\n    def create_user(self, email, username, password=None, **extra_fields):\r\n        if not email:\r\n            raise ValueError('The Email field must be set')\r\n        email = self.normalize_email(email)\r\n        user = self.model(email=email, username=username, **extra_fields)\r\n        user.set_password(password)\r\n        user.save(using=self._db)\r\n        return user\r\n\r\n    def create_superuser(self, email, username, password=None, **extra_fields):\r\n        extra_fields.setdefault('is_staff', True)\r\n        extra_fields.setdefault('is_superuser', True)\r\n\r\n        return self.create_user(email, username, password, **extra_fields)\r\n\r\nclass User(AbstractBaseUser):\r\n    email = models.EmailField(unique=True)\r\n    username = models.CharField(max_length=255)\r\n    is_active = models.BooleanField(default=True)\r\n    is_staff = models.BooleanField(default=False)\r\n\r\n    objects = UserManager()\r\n\r\n    USERNAME_FIELD = 'email'\r\n    REQUIRED_FIELDS = ['username']\r\n\r\n    def __str__(self):\r\n        return self.email\r\n\r\nclass Image(models.Model):\r\n    title = models.CharField(max_length=100, blank=True)\r\n    image = models.ImageField(upload_to='images/')\r\n    uploaded_at = models.DateTimeField(auto_now_add=True)\r\n\r\n    def __str__(self):\r\n        return self.title\r\n\r\n    @property\r\n    def image_url(self):\r\n        if self.image:\r\n            return self.image.url\r\n        return ''\r\n\r\n\r\nclass Category(MPTTModel):\r\n    name = models.CharField(max_length=255)\r\n    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')\r\n    class MPTTMeta:\r\n        order_insertion_by = ['name']\r\n\r\n    def __str__(self):\r\n        return self.name\r\nclass Brand(models.Model):\r\n    id = models.AutoField(primary_key=True)\r\n    name = models.CharField(max_length=255)\r\n\r\n    def __str__(self):\r\n        return self.name\r\n\r\nclass Product(models.Model):\r\n    id = models.AutoField(primary_key=True)\r\n    name = models.CharField(max_length=255)\r\n    price = models.DecimalField(max_digits=10, decimal_places=2)\r\n    image = models.ImageField(upload_to=\"products/\")\r\n    description = models.TextField(blank=True, null=True)\r\n    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)\r\n    brand = models.ForeignKey(Brand, related_name='products', on_delete=models.CASCADE)\r\n\r\n    def __str__(self):\r\n        return self.name\r\n\r\n    @property\r\n    def image_url(self):\r\n        if self.image:\r\n            return self.image.url\r\n        return ''\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/models.py b/djangoProject1/users/models.py
+--- a/djangoProject1/users/models.py	(revision 37d05da7b75f9036540f59333396209c9cbce1bd)
++++ b/djangoProject1/users/models.py	(date 1726043656716)
+@@ -1,4 +1,4 @@
+-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
++from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+ from django.db import models
+ from mptt.models import MPTTModel, TreeForeignKey
+ 
+@@ -34,48 +34,36 @@
+ 
+ class Image(models.Model):
+     title = models.CharField(max_length=100, blank=True)
+-    image = models.ImageField(upload_to='images/')
++    img = models.ImageField(upload_to='images/image/')
+     uploaded_at = models.DateTimeField(auto_now_add=True)
+ 
+     def __str__(self):
+         return self.title
+ 
+-    @property
+-    def image_url(self):
+-        if self.image:
+-            return self.image.url
+-        return ''
+-
+-
+ class Category(MPTTModel):
+-    name = models.CharField(max_length=255)
++    name = models.CharField(max_length=100)
++    img = models.ImageField(upload_to='images/category/')
+     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
++
+     class MPTTMeta:
+         order_insertion_by = ['name']
+ 
+     def __str__(self):
+         return self.name
++
+ class Brand(models.Model):
+-    id = models.AutoField(primary_key=True)
+     name = models.CharField(max_length=255)
+ 
+     def __str__(self):
+         return self.name
+ 
+ class Product(models.Model):
+-    id = models.AutoField(primary_key=True)
+     name = models.CharField(max_length=255)
++    img = models.ImageField(upload_to='images/products/')
++    description = models.TextField(blank=True)
+     price = models.DecimalField(max_digits=10, decimal_places=2)
+-    image = models.ImageField(upload_to="products/")
+-    description = models.TextField(blank=True, null=True)
+-    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
+-    brand = models.ForeignKey(Brand, related_name='products', on_delete=models.CASCADE)
++    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='products', null=True, blank=True)
++    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+ 
+     def __str__(self):
+-        return self.name
+-
+-    @property
+-    def image_url(self):
+-        if self.image:
+-            return self.image.url
+-        return ''
++        return self.name
+\ No newline at end of file
+Index: djangoProject1/users/serializers.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from rest_framework import serializers\r\nfrom .models import *\r\n\r\nclass ImageSerializer(serializers.ModelSerializer):\r\n    image_url = serializers.SerializerMethodField()\r\n\r\n    class Meta:\r\n        model = Image\r\n        fields = ['id', 'title', 'image', 'image_url']\r\n\r\n    def get_image_url(self, obj):\r\n        request = self.context.get('request')\r\n        return request.build_absolute_uri(obj.image.url)\r\n\r\n\r\nclass CategorySerializer(serializers.ModelSerializer):\r\n    children = serializers.SerializerMethodField()\r\n\r\n    class Meta:\r\n        model = Category\r\n        fields = ['id', 'name', 'parent', 'children']\r\n\r\n    def get_children(self, obj):\r\n        return CategorySerializer(obj.get_children(), many=True).data\r\n\r\nclass BrandSerializer(serializers.ModelSerializer):\r\n    class Meta:\r\n        model = Brand\r\n        fields = ['id', 'name']\r\n\r\nclass ProductSerializer(serializers.ModelSerializer):\r\n    image_url = serializers.SerializerMethodField()\r\n\r\n    class Meta:\r\n        model = Product\r\n        fields = ['id', 'name', 'description', 'brand', 'price', 'image', 'image_url', 'category']\r\n\r\n    def get_image_url(self, obj):\r\n        return obj.image_url\r\n\r\nclass UserSerializer(serializers.ModelSerializer):\r\n    class Meta:\r\n        model = User\r\n        fields = ('id', 'email', 'password', 'username')  # Добавьте другие необходимые поля\r\n        extra_kwargs = {\r\n            'password': {'write_only': True}\r\n        }\r\n\r\n    def create(self, validated_data):\r\n        user = User.objects.create_user(**validated_data)\r\n        return user\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/serializers.py b/djangoProject1/users/serializers.py
+--- a/djangoProject1/users/serializers.py	(revision 37d05da7b75f9036540f59333396209c9cbce1bd)
++++ b/djangoProject1/users/serializers.py	(date 1726043657324)
+@@ -6,7 +6,7 @@
+ 
+     class Meta:
+         model = Image
+-        fields = ['id', 'title', 'image', 'image_url']
++        fields = ['id', 'title', 'img', 'image_url']
+ 
+     def get_image_url(self, obj):
+         request = self.context.get('request')
+@@ -33,7 +33,7 @@
+ 
+     class Meta:
+         model = Product
+-        fields = ['id', 'name', 'description', 'brand', 'price', 'image', 'image_url', 'category']
++        fields = ['id', 'name', 'description', 'brand', 'price', 'img', 'image_url', 'category']
+ 
+     def get_image_url(self, obj):
+         return obj.image_url
+Index: djangoProject1/users/migrations/0004_alter_brand_id.py
+===================================================================
+diff --git a/djangoProject1/users/migrations/0004_alter_brand_id.py b/djangoProject1/users/migrations/0004_alter_brand_id.py
+deleted file mode 100644
+--- a/djangoProject1/users/migrations/0004_alter_brand_id.py	(revision 37d05da7b75f9036540f59333396209c9cbce1bd)
++++ /dev/null	(revision 37d05da7b75f9036540f59333396209c9cbce1bd)
+@@ -1,18 +0,0 @@
+-# Generated by Django 5.0.7 on 2024-08-20 11:05
+-
+-from django.db import migrations, models
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('users', '0003_alter_brand_name_alter_product_brand'),
+-    ]
+-
+-    operations = [
+-        migrations.AlterField(
+-            model_name='brand',
+-            name='id',
+-            field=models.AutoField(primary_key=True, serialize=False),
+-        ),
+-    ]
+Index: djangoProject1/users/migrations/0003_alter_brand_name_alter_product_brand.py
+===================================================================
+diff --git a/djangoProject1/users/migrations/0003_alter_brand_name_alter_product_brand.py b/djangoProject1/users/migrations/0003_alter_brand_name_alter_product_brand.py
+deleted file mode 100644
+--- a/djangoProject1/users/migrations/0003_alter_brand_name_alter_product_brand.py	(revision 37d05da7b75f9036540f59333396209c9cbce1bd)
++++ /dev/null	(revision 37d05da7b75f9036540f59333396209c9cbce1bd)
+@@ -1,24 +0,0 @@
+-# Generated by Django 5.0.7 on 2024-08-19 13:13
+-
+-import django.db.models.deletion
+-from django.db import migrations, models
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('users', '0002_alter_product_brand'),
+-    ]
+-
+-    operations = [
+-        migrations.AlterField(
+-            model_name='brand',
+-            name='name',
+-            field=models.CharField(max_length=255),
+-        ),
+-        migrations.AlterField(
+-            model_name='product',
+-            name='brand',
+-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='products', to='users.brand'),
+-        ),
+-    ]
+Index: djangoProject1/users/migrations/0006_product_description.py
+===================================================================
+diff --git a/djangoProject1/users/migrations/0006_product_description.py b/djangoProject1/users/migrations/0006_product_description.py
+deleted file mode 100644
+--- a/djangoProject1/users/migrations/0006_product_description.py	(revision 37d05da7b75f9036540f59333396209c9cbce1bd)
++++ /dev/null	(revision 37d05da7b75f9036540f59333396209c9cbce1bd)
+@@ -1,18 +0,0 @@
+-# Generated by Django 5.0.7 on 2024-08-20 11:16
+-
+-from django.db import migrations, models
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('users', '0005_remove_category_description'),
+-    ]
+-
+-    operations = [
+-        migrations.AddField(
+-            model_name='product',
+-            name='description',
+-            field=models.TextField(blank=True, null=True),
+-        ),
+-    ]
+Index: djangoProject1/users/migrations/0002_alter_product_brand.py
+===================================================================
+diff --git a/djangoProject1/users/migrations/0002_alter_product_brand.py b/djangoProject1/users/migrations/0002_alter_product_brand.py
+deleted file mode 100644
+--- a/djangoProject1/users/migrations/0002_alter_product_brand.py	(revision 37d05da7b75f9036540f59333396209c9cbce1bd)
++++ /dev/null	(revision 37d05da7b75f9036540f59333396209c9cbce1bd)
+@@ -1,19 +0,0 @@
+-# Generated by Django 5.0.7 on 2024-08-19 12:52
+-
+-import django.db.models.deletion
+-from django.db import migrations, models
+-
+-
+-class Migration(migrations.Migration):
+-
+-    dependencies = [
+-        ('users', '0001_initial'),
+-    ]
+-
+-    operations = [
+-        migrations.AlterField(
+-            model_name='product',
+-            name='brand',
+-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.brand'),
+-        ),
+-    ]
+Index: djangoProject1/users/migrations/0003_category_img.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/migrations/0003_category_img.py b/djangoProject1/users/migrations/0003_category_img.py
+new file mode 100644
+--- /dev/null	(date 1726043658122)
++++ b/djangoProject1/users/migrations/0003_category_img.py	(date 1726043658122)
+@@ -0,0 +1,19 @@
++# Generated by Django 5.0.7 on 2024-09-11 08:26
++
++from django.db import migrations, models
++
++
++class Migration(migrations.Migration):
++
++    dependencies = [
++        ('users', '0002_remove_brand_img'),
++    ]
++
++    operations = [
++        migrations.AddField(
++            model_name='category',
++            name='img',
++            field=models.ImageField(default=1, upload_to='images/category/'),
++            preserve_default=False,
++        ),
++    ]
+Index: djangoProject1/users/migrations/0005_remove_category_description.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/migrations/0005_remove_category_description.py b/djangoProject1/users/migrations/0002_remove_brand_img.py
+rename from djangoProject1/users/migrations/0005_remove_category_description.py
+rename to djangoProject1/users/migrations/0002_remove_brand_img.py
+--- a/djangoProject1/users/migrations/0005_remove_category_description.py	(revision 37d05da7b75f9036540f59333396209c9cbce1bd)
++++ b/djangoProject1/users/migrations/0002_remove_brand_img.py	(date 1726043658111)
+@@ -1,4 +1,4 @@
+-# Generated by Django 5.0.7 on 2024-08-20 11:14
++# Generated by Django 5.0.7 on 2024-09-11 08:23
+ 
+ from django.db import migrations
+ 
+@@ -6,12 +6,12 @@
+ class Migration(migrations.Migration):
+ 
+     dependencies = [
+-        ('users', '0004_alter_brand_id'),
++        ('users', '0001_initial'),
+     ]
+ 
+     operations = [
+         migrations.RemoveField(
+-            model_name='category',
+-            name='description',
++            model_name='brand',
++            name='img',
+         ),
+     ]
+Index: djangoProject1/users/migrations/0001_initial.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Generated by Django 5.0.7 on 2024-08-19 12:48\r\n\r\nimport django.db.models.deletion\r\nimport mptt.fields\r\nfrom django.db import migrations, models\r\n\r\n\r\nclass Migration(migrations.Migration):\r\n\r\n    initial = True\r\n\r\n    dependencies = [\r\n    ]\r\n\r\n    operations = [\r\n        migrations.CreateModel(\r\n            name='Brand',\r\n            fields=[\r\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\r\n                ('name', models.CharField(max_length=255, unique=True)),\r\n            ],\r\n        ),\r\n        migrations.CreateModel(\r\n            name='Image',\r\n            fields=[\r\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\r\n                ('title', models.CharField(blank=True, max_length=100)),\r\n                ('image', models.ImageField(upload_to='images/')),\r\n                ('uploaded_at', models.DateTimeField(auto_now_add=True)),\r\n            ],\r\n        ),\r\n        migrations.CreateModel(\r\n            name='User',\r\n            fields=[\r\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\r\n                ('password', models.CharField(max_length=128, verbose_name='password')),\r\n                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),\r\n                ('email', models.EmailField(max_length=254, unique=True)),\r\n                ('username', models.CharField(max_length=255)),\r\n                ('is_active', models.BooleanField(default=True)),\r\n                ('is_staff', models.BooleanField(default=False)),\r\n            ],\r\n            options={\r\n                'abstract': False,\r\n            },\r\n        ),\r\n        migrations.CreateModel(\r\n            name='Category',\r\n            fields=[\r\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\r\n                ('name', models.CharField(max_length=255)),\r\n                ('description', models.TextField(blank=True, null=True)),\r\n                ('lft', models.PositiveIntegerField(editable=False)),\r\n                ('rght', models.PositiveIntegerField(editable=False)),\r\n                ('tree_id', models.PositiveIntegerField(db_index=True, editable=False)),\r\n                ('level', models.PositiveIntegerField(editable=False)),\r\n                ('parent', mptt.fields.TreeForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='children', to='users.category')),\r\n            ],\r\n            options={\r\n                'abstract': False,\r\n            },\r\n        ),\r\n        migrations.CreateModel(\r\n            name='Product',\r\n            fields=[\r\n                ('id', models.AutoField(primary_key=True, serialize=False)),\r\n                ('name', models.CharField(max_length=255)),\r\n                ('price', models.DecimalField(decimal_places=2, max_digits=10)),\r\n                ('image', models.ImageField(upload_to='products/')),\r\n                ('brand', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='products', to='users.brand')),\r\n                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='products', to='users.category')),\r\n            ],\r\n        ),\r\n    ]\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/migrations/0001_initial.py b/djangoProject1/users/migrations/0001_initial.py
+--- a/djangoProject1/users/migrations/0001_initial.py	(revision 37d05da7b75f9036540f59333396209c9cbce1bd)
++++ b/djangoProject1/users/migrations/0001_initial.py	(date 1726043658240)
+@@ -1,4 +1,4 @@
+-# Generated by Django 5.0.7 on 2024-08-19 12:48
++# Generated by Django 5.0.7 on 2024-09-11 08:21
+ 
+ import django.db.models.deletion
+ import mptt.fields
+@@ -17,7 +17,8 @@
+             name='Brand',
+             fields=[
+                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+-                ('name', models.CharField(max_length=255, unique=True)),
++                ('name', models.CharField(max_length=255)),
++                ('img', models.ImageField(upload_to='images/brand/')),
+             ],
+         ),
+         migrations.CreateModel(
+@@ -25,7 +26,7 @@
+             fields=[
+                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                 ('title', models.CharField(blank=True, max_length=100)),
+-                ('image', models.ImageField(upload_to='images/')),
++                ('img', models.ImageField(upload_to='images/image/')),
+                 ('uploaded_at', models.DateTimeField(auto_now_add=True)),
+             ],
+         ),
+@@ -48,8 +49,7 @@
+             name='Category',
+             fields=[
+                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+-                ('name', models.CharField(max_length=255)),
+-                ('description', models.TextField(blank=True, null=True)),
++                ('name', models.CharField(max_length=100)),
+                 ('lft', models.PositiveIntegerField(editable=False)),
+                 ('rght', models.PositiveIntegerField(editable=False)),
+                 ('tree_id', models.PositiveIntegerField(db_index=True, editable=False)),
+@@ -63,11 +63,12 @@
+         migrations.CreateModel(
+             name='Product',
+             fields=[
+-                ('id', models.AutoField(primary_key=True, serialize=False)),
++                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                 ('name', models.CharField(max_length=255)),
++                ('img', models.ImageField(upload_to='images/products/')),
++                ('description', models.TextField(blank=True)),
+                 ('price', models.DecimalField(decimal_places=2, max_digits=10)),
+-                ('image', models.ImageField(upload_to='products/')),
+-                ('brand', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='products', to='users.brand')),
++                ('brand', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='products', to='users.brand')),
+                 ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='products', to='users.category')),
+             ],
+         ),
+diff --git a/djangoProject1/users/filters.py b/djangoProject1/users/filters.py
+new file mode 100644

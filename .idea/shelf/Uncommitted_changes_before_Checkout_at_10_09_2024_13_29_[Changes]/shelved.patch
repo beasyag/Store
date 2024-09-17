@@ -1,0 +1,548 @@
+Index: djangoProject1/users/urls.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.urls import path\r\nfrom . import views\r\nfrom .views import RegisterView, LoginView, ProtectedView\r\n\r\nurlpatterns = [\r\n    path('register/', RegisterView.as_view(), name='register'),\r\n    path('login/', LoginView.as_view(), name='login'),\r\n    path('protected/', views.ProtectedView.as_view(), name='protected'),\r\n    # path('test/', views.test_view, name='test'),\r\n]\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/urls.py b/djangoProject1/users/urls.py
+--- a/djangoProject1/users/urls.py	
++++ b/djangoProject1/users/urls.py	
+@@ -1,10 +1,21 @@
++from django.conf import settings
++from django.conf.urls.static import static
+ from django.urls import path
+ from . import views
+-from .views import RegisterView, LoginView, ProtectedView
+ 
+ urlpatterns = [
+-    path('register/', RegisterView.as_view(), name='register'),
+-    path('login/', LoginView.as_view(), name='login'),
+-    path('protected/', views.ProtectedView.as_view(), name='protected'),
+-    # path('test/', views.test_view, name='test'),
++    path('register/', views.register, name='register'),
++    path('login/', views.login, name='login'),
++    path('protected/', views.protected, name='protected'),
++    path('categories/', views.category_list_create, name='category-list-create'),
++    path('categories/<int:pk>/', views.category_detail, name='category-detail'),
++    path('products/', views.product_list_create, name='product-list-create'),
++    path('products/<int:pk>/', views.product_detail, name='product-detail'),
++    path('images/', views.image_list, name='image-list'),
++    path('images/<int:pk>/', views.image_detail, name='image-detail'),
++    path('brands/', views.brand_list_create, name='brand-list-create'),
++    path('brands/<int:pk>/', views.brand_detail, name='brand-detail'),
+ ]
++
++if settings.DEBUG:
++    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+\ No newline at end of file
+Index: djangoProject1/users/views.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.contrib.auth import get_user_model, authenticate\r\nfrom rest_framework.permissions import AllowAny\r\nfrom rest_framework.response import Response\r\nfrom rest_framework_simplejwt.tokens import RefreshToken\r\nfrom rest_framework_simplejwt.views import TokenObtainPairView\r\nfrom rest_framework import status, generics, permissions\r\nfrom .serializers import UserSerializer\r\n\r\nUser = get_user_model()  # Импортируем модель User\r\n\r\n\r\nclass RegisterView(generics.CreateAPIView):\r\n    queryset = User.objects.all()\r\n    serializer_class = UserSerializer\r\n    permission_classes = [AllowAny]\r\n    def post(self, request):\r\n        serializer = UserSerializer(data=request.data)\r\n        if serializer.is_valid():\r\n            serializer.save()\r\n            return Response(serializer.data, status=status.HTTP_201_CREATED)\r\n        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)\r\n\r\n\r\nclass LoginView(TokenObtainPairView):\r\n    permission_classes = [AllowAny]\r\n\r\n    def post(self, request, *args, **kwargs):\r\n        email = request.data.get('email')\r\n        password = request.data.get('password')\r\n        user = authenticate(email=email, password=password)\r\n        if user is not None:\r\n            refresh = RefreshToken.for_user(user)\r\n            return Response({\r\n                'access': str(refresh.access_token),\r\n                'refresh': str(refresh)\r\n            })\r\n        return Response({'error': 'Invalid credentials'}, status=400)\r\n\r\nclass ProtectedView(generics.RetrieveAPIView):\r\n    permission_classes = [permissions.IsAuthenticated]\r\n\r\n    def get(self, request, *args, **kwargs):\r\n        return Response({'message': 'This is a protected view'})
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/views.py b/djangoProject1/users/views.py
+--- a/djangoProject1/users/views.py	
++++ b/djangoProject1/users/views.py	
+@@ -1,43 +1,173 @@
+-from django.contrib.auth import get_user_model, authenticate
+-from rest_framework.permissions import AllowAny
++from rest_framework.decorators import api_view, permission_classes
++from rest_framework.permissions import IsAuthenticated, AllowAny
+ from rest_framework.response import Response
++from rest_framework import status, filters
++from django.contrib.auth import authenticate, get_user_model
+ from rest_framework_simplejwt.tokens import RefreshToken
+-from rest_framework_simplejwt.views import TokenObtainPairView
+-from rest_framework import status, generics, permissions
+-from .serializers import UserSerializer
+-
+-User = get_user_model()  # Импортируем модель User
++from .serializers import *
++from .models import *
++from .filters import *
+ 
+-
+-class RegisterView(generics.CreateAPIView):
+-    queryset = User.objects.all()
+-    serializer_class = UserSerializer
+-    permission_classes = [AllowAny]
+-    def post(self, request):
+-        serializer = UserSerializer(data=request.data)
+-        if serializer.is_valid():
+-            serializer.save()
+-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+-
+-
+-class LoginView(TokenObtainPairView):
+-    permission_classes = [AllowAny]
+-
+-    def post(self, request, *args, **kwargs):
+-        email = request.data.get('email')
+-        password = request.data.get('password')
+-        user = authenticate(email=email, password=password)
+-        if user is not None:
+-            refresh = RefreshToken.for_user(user)
+-            return Response({
+-                'access': str(refresh.access_token),
+-                'refresh': str(refresh)
+-            })
+-        return Response({'error': 'Invalid credentials'}, status=400)
++@api_view(['POST'])
++@permission_classes([AllowAny])
++def login(request):
++    """
++    User login view. Returns JWT tokens for authenticated users.
++    """
++    print("Login view called")  # Отладочный вывод
++    email = request.data.get('email')
++    password = request.data.get('password')
++    user = authenticate(request, email=email, password=password)
++    if user is not None:
++        refresh = RefreshToken.for_user(user)
++        return Response({
++            'refresh': str(refresh),
++            'access': str(refresh.access_token),
++        }, status=status.HTTP_200_OK)
++    return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
++
++@api_view(['POST'])
++@permission_classes([AllowAny])
++def register(request):
++    """
++    User registration view.
++    """
++    serializer = UserSerializer(data=request.data)
++    if serializer.is_valid():
++        serializer.save()
++        return Response({"detail": "User registered successfully"}, status=status.HTTP_201_CREATED)
++    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
++
++
++@api_view(['GET'])
++@permission_classes([IsAuthenticated])
++def protected(request):
++    """
++    A protected view that requires authentication.
++    """
++    return Response({"detail": "You are authenticated"}, status=status.HTTP_200_OK)
++
++@api_view(['GET', 'POST'])
++@permission_classes([AllowAny])
++def category_list_create(request):
++    """
++    List all categories or create a new category.
++    """
++    if request.method == 'GET':
++        categories = Category.objects.all()
++        serializer = CategorySerializer(categories, many=True)
++        return Response(serializer.data)
++
++    if request.method == 'POST':
++        serializer = CategorySerializer(data=request.data)
++        if serializer.is_valid():
++            serializer.save()
++            return Response(serializer.data, status=status.HTTP_201_CREATED)
++        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
++
++@api_view(['GET'])
++@permission_classes([AllowAny])
++def category_detail(request, pk):
++    """
++    Retrieve a specific category by ID.
++    """
++    try:
++        category = Category.objects.get(pk=pk)
++    except Category.DoesNotExist:
++        return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
++
++    serializer = CategorySerializer(category)
++    return Response(serializer.data)
++
++@api_view(['GET', 'POST'])
++@permission_classes([AllowAny])
++def product_list_create(request):
++    """
++    List all products or create a new product with search functionality.
++    """
++    if request.method == 'GET':
++        filterset = ProductFilter(request.GET, queryset=Product.objects.all())
++        if filterset.is_valid():
++            products = filterset.qs
++            serializer = ProductSerializer(products, many=True, context={'request': request})
++            return Response(serializer.data)
++        return Response({'detail': 'Invalid filters'}, status=status.HTTP_400_BAD_REQUEST)
++
++    elif request.method == 'POST':
++        serializer = ProductSerializer(data=request.data, context={'request': request})
++        if serializer.is_valid():
++            serializer.save()
++            return Response(serializer.data, status=status.HTTP_201_CREATED)
++        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
++
++@api_view(['GET'])
++@permission_classes([IsAuthenticated])
++def product_detail(request, pk):
++    """
++    Retrieve a single product by its ID.
++    """
++    try:
++        product = Product.objects.get(pk=pk)
++    except Product.DoesNotExist:
++        return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+ 
+-class ProtectedView(generics.RetrieveAPIView):
+-    permission_classes = [permissions.IsAuthenticated]
++    serializer = ProductSerializer(product, context={'request': request})
++    return Response(serializer.data)
+ 
+-    def get(self, request, *args, **kwargs):
+-        return Response({'message': 'This is a protected view'})
+\ No newline at end of file
++@api_view(['GET'])
++@permission_classes([AllowAny])
++def image_list(request):
++    """
++    List all images.
++    """
++    images = Image.objects.all()
++    serializer = ImageSerializer(images, many=True, context={'request': request})
++    return Response(serializer.data)
++
++
++@api_view(['GET'])
++@permission_classes([AllowAny])
++def image_detail(request, pk):
++    """
++    Retrieve a specific image by ID.
++    """
++    try:
++        image = Image.objects.get(pk=pk)
++    except Image.DoesNotExist:
++        return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
++
++    serializer = ImageSerializer(image, context={'request': request})
++    return Response(serializer.data)
++
++
++@api_view(['GET', 'POST'])
++@permission_classes([AllowAny])
++def brand_list_create(request):
++    """
++    List all brands or create a new brand.
++    """
++    if request.method == 'GET':
++        brands = Brand.objects.all()
++        serializer = BrandSerializer(brands, many=True)
++        return Response(serializer.data)
++
++    if request.method == 'POST':
++        serializer = BrandSerializer(data=request.data)
++        if serializer.is_valid():
++            serializer.save()
++            return Response(serializer.data, status=status.HTTP_201_CREATED)
++        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
++
++@api_view(['GET'])
++@permission_classes([AllowAny])
++def brand_detail(request, pk):
++    """
++    Retrieve a specific brand by id.
++    """
++    try:
++        brand = Brand.objects.get(pk=pk)
++    except Brand.DoesNotExist:
++        return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
++
++    serializer = BrandSerializer(brand)
++    return Response(serializer.data)
+\ No newline at end of file
+Index: djangoProject1/users/migrations/0011_category_image.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/migrations/0011_category_image.py b/djangoProject1/users/migrations/0011_category_image.py
+new file mode 100644
+--- /dev/null	
++++ b/djangoProject1/users/migrations/0011_category_image.py	
+@@ -0,0 +1,19 @@
++# Generated by Django 5.0.7 on 2024-09-05 18:52
++
++from django.db import migrations, models
++
++
++class Migration(migrations.Migration):
++
++    dependencies = [
++        ('users', '0010_alter_product_image'),
++    ]
++
++    operations = [
++        migrations.AddField(
++            model_name='category',
++            name='image',
++            field=models.ImageField(default=1, upload_to='category/images/'),
++            preserve_default=False,
++        ),
++    ]
+Index: djangoProject1/users/admin.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.contrib import admin\r\nfrom mptt.admin import MPTTModelAdmin\r\nfrom .models import Category, Image, Product\r\n\r\n@admin.register(Category)\r\nclass CategoryAdmin(MPTTModelAdmin):\r\n    list_display = ('name', 'parent')\r\n    search_fields = ('name',)\r\n\r\n@admin.register(Product)\r\nclass ProductAdmin(admin.ModelAdmin):\r\n    list_display = ('name', 'price', 'category')\r\n    list_filter = ('category',)\r\n\r\n@admin.register(Image)\r\nclass ImageAdmin(admin.ModelAdmin):\r\n    list_display = ('title', 'uploaded_at')\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/admin.py b/djangoProject1/users/admin.py
+--- a/djangoProject1/users/admin.py	
++++ b/djangoProject1/users/admin.py	
+@@ -1,17 +1,18 @@
+ from django.contrib import admin
+ from mptt.admin import MPTTModelAdmin
+-from .models import Category, Image, Product
++from .models import *
+ 
+ @admin.register(Category)
+ class CategoryAdmin(MPTTModelAdmin):
+     list_display = ('name', 'parent')
+-    search_fields = ('name',)
+ 
+ @admin.register(Product)
+ class ProductAdmin(admin.ModelAdmin):
+     list_display = ('name', 'price', 'category')
+     list_filter = ('category',)
++    search_fields = ('name', 'category__name', 'brand__name')
+ 
+ @admin.register(Image)
+ class ImageAdmin(admin.ModelAdmin):
+     list_display = ('title', 'uploaded_at')
++admin.site.register(Brand)
+\ No newline at end of file
+Index: djangoProject1/djangoProject1/settings.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\"\"\"\r\nDjango settings for djangoProject1 project.\r\n\r\nGenerated by 'django-admin startproject' using Django 5.0.7.\r\n\r\nFor more information on this file, see\r\nhttps://docs.djangoproject.com/en/5.0/topics/settings/\r\n\r\nFor the full list of settings and their values, see\r\nhttps://docs.djangoproject.com/en/5.0/ref/settings/\r\n\"\"\"\r\n\r\nfrom pathlib import Path\r\nfrom datetime import timedelta\r\nfrom django.db import models\r\nimport os\r\n# Build paths inside the project like this: BASE_DIR / 'subdir'.\r\nBASE_DIR = Path(__file__).resolve().parent.parent\r\n\r\n\r\n# Quick-start development settings - unsuitable for production\r\n# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/\r\n\r\n# SECURITY WARNING: keep the secret key used in production secret!\r\nSECRET_KEY = 'django-insecure-cs+6e@z!kt4hm%6ihb-%=!n9s^k^g*7!wy^lyy%4gx03rq2zj9'\r\n\r\n# SECURITY WARNING: don't run with debug turned on in production!\r\nDEBUG = True\r\n\r\nALLOWED_HOSTS = []\r\n\r\n# Application definition\r\n\r\nINSTALLED_APPS = [\r\n    'django.contrib.admin',\r\n    'django.contrib.auth',\r\n    'django.contrib.contenttypes',\r\n    'django.contrib.sessions',\r\n    'django.contrib.messages',\r\n    'django.contrib.staticfiles',\r\n    'corsheaders',\r\n    'rest_framework',\r\n    'djoser',\r\n    'users',\r\n    'mptt',\r\n]\r\n\r\n\r\nMIDDLEWARE = [\r\n    'django.middleware.security.SecurityMiddleware',\r\n    'django.contrib.sessions.middleware.SessionMiddleware',\r\n    'django.middleware.common.CommonMiddleware',\r\n    'django.middleware.csrf.CsrfViewMiddleware',\r\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\r\n    'django.contrib.messages.middleware.MessageMiddleware',\r\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\r\n    'corsheaders.middleware.CorsMiddleware',\r\n    'django.middleware.common.CommonMiddleware',\r\n]\r\n\r\nROOT_URLCONF = 'djangoProject1.urls'\r\n\r\nTEMPLATES = [\r\n    {\r\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\r\n        'DIRS': [BASE_DIR / 'templates'],\r\n        'APP_DIRS': True,\r\n        'OPTIONS': {\r\n            'context_processors': [\r\n                'django.template.context_processors.debug',\r\n                'django.template.context_processors.request',\r\n                'django.contrib.auth.context_processors.auth',\r\n                'django.contrib.messages.context_processors.messages',\r\n            ],\r\n        },\r\n    },\r\n]\r\n\r\nWSGI_APPLICATION = 'djangoProject1.wsgi.application'\r\n\r\n\r\n# Database\r\n# https://docs.djangoproject.com/en/5.0/ref/settings/#databases\r\n\r\nDATABASES = {\r\n    'default': {\r\n        'ENGINE': 'django.db.backends.postgresql',\r\n        'NAME': 'postgres',\r\n        'USER': 'postgres',\r\n        'PASSWORD': 'postgres',\r\n        'HOST': 'localhost',\r\n        'PORT': '5432',\r\n    }\r\n}\r\n\r\n# Password validation\r\n# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators\r\n\r\nAUTH_PASSWORD_VALIDATORS = [\r\n    {\r\n        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',\r\n    },\r\n    {\r\n        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',\r\n    },\r\n    {\r\n        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',\r\n    },\r\n    {\r\n        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',\r\n    },\r\n]\r\n\r\n\r\n# Internationalization\r\n# https://docs.djangoproject.com/en/5.0/topics/i18n/\r\n\r\nLANGUAGE_CODE = 'en-us'\r\n\r\nTIME_ZONE = 'UTC'\r\n\r\nUSE_I18N = True\r\n\r\nUSE_TZ = True\r\n\r\n\r\n# Static files (CSS, JavaScript, Images)\r\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\r\n\r\nSTATIC_URL = 'static/'\r\n# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')\r\n\r\n# Media files settings\r\nMEDIA_URL = '/media/'\r\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\r\n\r\n# Default primary key field type\r\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\r\n\r\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\r\n\r\n\r\nREST_FRAMEWORK = {\r\n    'DEFAULT_AUTHENTICATION_CLASSES': (\r\n        'rest_framework_simplejwt.authentication.JWTAuthentication',\r\n    ),\r\n    'DEFAULT_PERMISSION_CLASSES': (\r\n        'rest_framework.permissions.IsAuthenticated',\r\n        'rest_framework.permissions.AllowAny',\r\n    ),\r\n\r\n}\r\n\r\nSIMPLE_JWT = {\r\n    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),\r\n    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),\r\n    'ROTATE_REFRESH_TOKENS': False,\r\n    'BLACKLIST_AFTER_ROTATION': True,\r\n    'ALGORITHM': 'HS256',\r\n    'SIGNING_KEY': SECRET_KEY,\r\n    'VERIFYING_KEY': None,\r\n    'AUDIENCE': None,\r\n    'ISSUER': None,\r\n    'AUTH_HEADER_TYPES': ('JWT',),\r\n    'USER_ID_FIELD': 'id',\r\n    'USER_ID_CLAIM': 'user_id',\r\n    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),\r\n    'TOKEN_TYPE_CLAIM': 'token_type',\r\n    'JTI_CLAIM': 'jti',\r\n}\r\n\r\nCORS_ALLOWED_ORIGINS = [\r\n    'http://localhost:8080',  # Адрес вашего фронтенда\r\n]\r\n\r\n# SECURE_SSL_REDIRECT = True\r\n# SESSION_COOKIE_SECURE = True\r\n# CSRF_COOKIE_SECURE = True\r\n# SECURE_BROWSER_XSS_FILTER = True\r\n# SECURE_CONTENT_TYPE_NOSNIFF = True\r\n# X_FRAME_OPTIONS = 'DENY'\r\n\r\nDJOSER = {\r\n    'USER_CREATE_PASSWORD_RETYPE': True,\r\n    'SERIALIZERS': {\r\n        'user_create': 'users.serializers.UserCreateSerializer',\r\n    },\r\n}\r\n\r\n# CORS_ALLOW_ALL_ORIGINS = True  # Для тестирования. В продакшене укажите конкретные разрешенные источники
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/djangoProject1/settings.py b/djangoProject1/djangoProject1/settings.py
+--- a/djangoProject1/djangoProject1/settings.py	
++++ b/djangoProject1/djangoProject1/settings.py	
+@@ -43,6 +43,7 @@
+     'djoser',
+     'users',
+     'mptt',
++    'django_filters',
+ ]
+ 
+ 
+@@ -148,7 +149,10 @@
+         'rest_framework.permissions.IsAuthenticated',
+         'rest_framework.permissions.AllowAny',
+     ),
+-
++    'DEFAULT_FILTER_BACKENDS': (
++        'django_filters.rest_framework.DjangoFilterBackend',
++        'rest_framework.filters.OrderingFilter',
++    ),
+ }
+ 
+ SIMPLE_JWT = {
+@@ -187,4 +191,8 @@
+     },
+ }
+ 
+-# CORS_ALLOW_ALL_ORIGINS = True  # Для тестирования. В продакшене укажите конкретные разрешенные источники
+\ No newline at end of file
++# CORS_ALLOW_ALL_ORIGINS = True  # Для тестирования. В продакшене укажите конкретные разрешенные источники
++
++AUTHENTICATION_BACKENDS = [
++    'django.contrib.auth.backends.ModelBackend',
++]
+Index: djangoProject1/users/filters.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/filters.py b/djangoProject1/users/filters.py
+new file mode 100644
+--- /dev/null	
++++ b/djangoProject1/users/filters.py	
+@@ -0,0 +1,12 @@
++# filters.py
++import django_filters
++from .models import *
++
++class ProductFilter(django_filters.FilterSet):
++    name = django_filters.CharFilter(lookup_expr='icontains')
++    brand = django_filters.CharFilter(lookup_expr='icontains')
++    category = django_filters.CharFilter(lookup_expr='icontains')
++
++    class Meta:
++        model = Product
++        fields = ['name', 'brand', 'category']
+Index: djangoProject1/users/migrations/0009_brand_rename_img_image_image_and_more.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/migrations/0009_brand_rename_img_image_image_and_more.py b/djangoProject1/users/migrations/0009_brand_rename_img_image_image_and_more.py
+new file mode 100644
+--- /dev/null	
++++ b/djangoProject1/users/migrations/0009_brand_rename_img_image_image_and_more.py	
+@@ -0,0 +1,52 @@
++# Generated by Django 5.0.7 on 2024-09-03 08:15
++
++import django.db.models.deletion
++from django.db import migrations, models
++
++
++class Migration(migrations.Migration):
++
++    dependencies = [
++        ('users', '0008_category_level_category_lft_category_parent_and_more'),
++    ]
++
++    operations = [
++        migrations.CreateModel(
++            name='Brand',
++            fields=[
++                ('id', models.AutoField(primary_key=True, serialize=False)),
++                ('name', models.CharField(max_length=255)),
++            ],
++        ),
++        migrations.RenameField(
++            model_name='image',
++            old_name='img',
++            new_name='image',
++        ),
++        migrations.RenameField(
++            model_name='product',
++            old_name='img',
++            new_name='image',
++        ),
++        migrations.AddField(
++            model_name='product',
++            name='description',
++            field=models.TextField(blank=True, null=True),
++        ),
++        migrations.AlterField(
++            model_name='category',
++            name='name',
++            field=models.CharField(max_length=255),
++        ),
++        migrations.AlterField(
++            model_name='product',
++            name='id',
++            field=models.AutoField(primary_key=True, serialize=False),
++        ),
++        migrations.AddField(
++            model_name='product',
++            name='brand',
++            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.CASCADE, related_name='products', to='users.brand'),
++            preserve_default=False,
++        ),
++    ]
+Index: djangoProject1/users/serializers.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from rest_framework import serializers\r\nfrom django.contrib.auth.models import User\r\nfrom .models import Category\r\n\r\nclass CategorySerializer(serializers.ModelSerializer):\r\n    class Meta:\r\n        model = Category\r\n        fields = ['id', 'name', 'parent', 'level', 'lft', 'rght', 'tree_id']\r\n\r\n\r\nclass UserSerializer(serializers.ModelSerializer):\r\n    class Meta:\r\n        model = User\r\n        fields = ('id', 'email', 'password', 'username')  # Добавьте другие необходимые поля\r\n        extra_kwargs = {\r\n            'password': {'write_only': True}\r\n        }\r\n\r\n    def create(self, validated_data):\r\n        user = User.objects.create_user(**validated_data)\r\n        return user\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/serializers.py b/djangoProject1/users/serializers.py
+--- a/djangoProject1/users/serializers.py	
++++ b/djangoProject1/users/serializers.py	
+@@ -1,17 +1,20 @@
+ from rest_framework import serializers
+-from django.contrib.auth.models import User
+-from .models import Category
++from .models import *
+ 
+ class CategorySerializer(serializers.ModelSerializer):
++    children = serializers.SerializerMethodField()
++
+     class Meta:
+         model = Category
+-        fields = ['id', 'name', 'parent', 'level', 'lft', 'rght', 'tree_id']
++        fields = ['id', 'name', 'image', 'parent', 'children']
+ 
++    def get_children(self, obj):
++        return CategorySerializer(obj.get_children(), many=True).data
+ 
+ class UserSerializer(serializers.ModelSerializer):
+     class Meta:
+         model = User
+-        fields = ('id', 'email', 'password', 'username')  # Добавьте другие необходимые поля
++        fields = ('id', 'email', 'password', 'username')
+         extra_kwargs = {
+             'password': {'write_only': True}
+         }
+@@ -19,3 +22,35 @@
+     def create(self, validated_data):
+         user = User.objects.create_user(**validated_data)
+         return user
++
++class ImageSerializer(serializers.ModelSerializer):
++    image_url = serializers.SerializerMethodField()
++
++    class Meta:
++        model = Image
++        fields = ['id', 'title', 'image', 'image_url']
++
++    def get_image_url(self, obj):
++        if obj.image:
++            return self.context['request'].build_absolute_uri(obj.image.url)
++        return None
++
++class BrandSerializer(serializers.ModelSerializer):
++    class Meta:
++        model = Brand
++        fields = ['id', 'name']
++
++class ProductSerializer(serializers.ModelSerializer):
++    category = CategorySerializer()
++    brand = BrandSerializer()
++    image_url = serializers.SerializerMethodField()
++
++    class Meta:
++        model = Product
++        fields = '__all__'
++
++    def get_image_url(self, obj):
++        request = self.context.get('request')
++        if request and obj.image:
++            return request.build_absolute_uri(obj.image.url)
++        return None
+\ No newline at end of file
+Index: djangoProject1/users/migrations/0010_alter_product_image.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/djangoProject1/users/migrations/0010_alter_product_image.py b/djangoProject1/users/migrations/0010_alter_product_image.py
+new file mode 100644
+--- /dev/null	
++++ b/djangoProject1/users/migrations/0010_alter_product_image.py	
+@@ -0,0 +1,18 @@
++# Generated by Django 5.0.7 on 2024-09-04 11:41
++
++from django.db import migrations, models
++
++
++class Migration(migrations.Migration):
++
++    dependencies = [
++        ('users', '0009_brand_rename_img_image_image_and_more'),
++    ]
++
++    operations = [
++        migrations.AlterField(
++            model_name='product',
++            name='image',
++            field=models.ImageField(upload_to='products/images/'),
++        ),
++    ]
