@@ -1,0 +1,2437 @@
+Index: vue-freelance/src/components/RegisterForm.vue
+===================================================================
+diff --git a/vue-freelance/src/components/RegisterForm.vue b/vue-freelance/src/components/RegisterForm.vue
+deleted file mode 100644
+--- a/vue-freelance/src/components/RegisterForm.vue	
++++ /dev/null	
+@@ -1,188 +0,0 @@
+-<template>
+-  <div class="auth-form-container">
+-    <h3 class="text-center color-primary">Sign Up Here</h3>
+-    <form @submit.prevent="signup" class="auth-form">
+-      <div class="form-group">
+-        <label for="name">Name</label>
+-        <input @keyup="changing('name')" v-model="name" class="form-control" :class="{ 'border-danger': hasnameError }" type="text" id="name" placeholder="Enter your name" required>
+-        <small class="color-danger">{{ nameError }}</small>
+-      </div>
+-      <div class="form-group">
+-        <label for="email">Email</label>
+-        <input @keyup="changing('email')" v-model="email" class="form-control" :class="{ 'border-danger': hasEmailError }" type="email" id="email" placeholder="Enter your email" required>
+-        <small class="color-danger">{{ emailError }}</small>
+-      </div>
+-      <div class="form-group">
+-        <label for="password1">Password</label>
+-        <input @keyup="changing('password1')" v-model="password1" class="form-control" :class="{ 'border-danger': hasPassword1Error }" type="password" name="password1" id="password1" placeholder="Enter your password" required>
+-        <small class="color-danger">{{ password1Error }}</small>
+-      </div>
+-      <div class="form-group">
+-        <label for="password2">Confirm Password</label>
+-        <input @keyup="changing('password2')" v-model="password2" class="form-control" :class="{ 'border-danger': hasPassword2Error }" type="password" id="password2" placeholder="Confirm your password" required>
+-        <small class="color-danger">{{ password2Error }}</small>
+-      </div>
+-
+-      <button type="submit" class="btn btn-primary">Sign up</button>
+-      <p class="text-center">Already have an account? <span class="color-primary login-btn cursor-pointer" @click="showLoginForm">Login</span></p>
+-    </form>
+-  </div>
+-</template>
+-
+-<script>
+-export default {
+-  data() {
+-    return {
+-      name: '',
+-      email: '',
+-      password1: '',
+-      password2: '',
+-
+-      nameError: '',
+-      hasnameError: false,
+-      emailError: '',
+-      hasEmailError: false,
+-      password1Error: '',
+-      hasPassword1Error: false,
+-      password2Error: '',
+-      hasPassword2Error: false, // Исправлено имя переменной
+-    }
+-  },
+-  methods: {
+-    signup() {
+-      this.$axios.post('api/register/', {
+-        name: this.name,
+-        email: this.email,
+-        password1: this.password1,
+-        password2: this.password2,
+-      }).then(response => {
+-        if (response.data.status === 400) {
+-          if (response.data.data.name) {
+-            this.nameError = response.data.data.name[0];
+-            this.hasnameError = true;
+-          }
+-          if (response.data.data.email) {
+-            this.emailError = response.data.data.email[0];
+-            this.hasEmailError = true;
+-          }
+-          if (response.data.data.password1) {
+-            this.password1Error = response.data.data.password1[0];
+-            this.hasPassword1Error = true;
+-          }
+-          if (response.data.data.password2) {
+-            this.password2Error = response.data.data.password2[0];
+-            this.hasPassword2Error = true;
+-          }
+-        }
+-
+-        if (response.data.status === 200) {
+-          this.$root.message = response.data.message;
+-          this.showLoginForm(); // Показываем форму входа при успешной регистрации
+-        }
+-      });
+-    },
+-    changing(field) {
+-      if (field === 'name') {
+-        this.nameError = '';
+-        this.hasnameError = false;
+-      }
+-      if (field === 'email') {
+-        this.emailError = '';
+-        this.hasEmailError = false;
+-      }
+-      if (field === 'password1') {
+-        this.password1Error = '';
+-        this.hasPassword1Error = false;
+-      }
+-      if (field === 'password2') {
+-        this.password2Error = '';
+-        this.hasPassword2Error = false;
+-      }
+-    },
+-    showLoginForm() {
+-      this.$emit('show-login'); // Переход к форме входа
+-    }
+-  }
+-}
+-</script>
+-
+-<style scoped>
+-.auth-form-container {
+-  width: 100%;
+-  max-width: 400px;
+-  margin: 0 auto;
+-  padding: 20px;
+-  background-color: #fff;
+-  border-radius: 10px;
+-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+-}
+-
+-.auth-form-container h3 {
+-  margin-bottom: 20px;
+-  font-size: 24px;
+-  color: #333;
+-}
+-
+-.form-group {
+-  margin-bottom: 20px;
+-}
+-
+-.form-group label {
+-  display: block;
+-  margin-bottom: 5px;
+-  font-weight: 500;
+-  color: #333;
+-}
+-
+-.form-group input {
+-  width: 100%;
+-  padding: 10px;
+-  font-size: 16px;
+-  border: 1px solid #ccc;
+-  border-radius: 5px;
+-  box-sizing: border-box;
+-}
+-
+-.form-group input:focus {
+-  outline: none;
+-  border-color: #007bff;
+-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+-}
+-
+-.form-group input.border-danger {
+-  border-color: #dc3545;
+-}
+-
+-.color-danger {
+-  color: #dc3545;
+-  font-size: 14px;
+-}
+-
+-.color-primary {
+-  color: #007bff;
+-}
+-
+-.btn {
+-  width: 100%;
+-  padding: 10px;
+-  font-size: 16px;
+-  background-color: #007bff;
+-  color: #fff;
+-  border: none;
+-  border-radius: 5px;
+-  cursor: pointer;
+-  transition: background-color 0.3s ease;
+-}
+-
+-.btn:hover {
+-  background-color: #0056b3;
+-}
+-
+-.text-center {
+-  text-align: center;
+-}
+-
+-.cursor-pointer {
+-  cursor: pointer;
+-}
+-</style>
+Index: vue-freelance/src/components/Modal.vue
+===================================================================
+diff --git a/vue-freelance/src/components/Modal.vue b/vue-freelance/src/components/Modal.vue
+deleted file mode 100644
+--- a/vue-freelance/src/components/Modal.vue	
++++ /dev/null	
+@@ -1,111 +0,0 @@
+-<template>
+-  <div
+-      v-if="isVisible"
+-      class="modal-overlay"
+-      @click.self="close"
+-      tabindex="-1"
+-      ref="modal"
+-  >
+-  <div class="modal">
+-      <button
+-        class="modal-close"
+-        @click="close"
+-      >
+-        ×
+-      </button>
+-      <div class="modal-content">
+-        <slot />
+-      </div>
+-    </div>
+-  </div>
+-</template>
+-
+-<script>
+-export default {
+-  props: {
+-    isVisible: {
+-      type: Boolean,
+-      default: false
+-    }
+-  },
+-  mounted() {
+-    if (this.isVisible) {
+-      this.$refs.modal.focus();
+-      document.addEventListener('keydown', this.handleEsc);
+-    }
+-  },
+-  beforeDestroy() {
+-    document.removeEventListener('keydown', this.handleEsc);
+-  },
+-  methods: {
+-    handleEsc(event) {
+-      if (event.key === 'Escape') {
+-        this.close();
+-      }
+-    }
+-  },
+-  watch: {
+-    isVisible(newValue) {
+-      if (newValue) {
+-        this.$nextTick(() => {
+-          this.$el.querySelector('.modal-overlay').classList.add('show');
+-        });
+-      } else {
+-        this.$el.querySelector('.modal-overlay').classList.remove('show');
+-      }
+-    }
+-  }
+-};
+-</script>
+-
+-<style scoped>
+-.modal-overlay {
+-  position: fixed;
+-  top: 0;
+-  left: 0;
+-  width: 100%;
+-  height: 100%;
+-  background-color: rgba(0, 0, 0, 0.5);
+-  display: flex;
+-  justify-content: center;
+-  align-items: center;  transition: opacity 0.3s ease;
+-  opacity: 0;
+-  visibility: hidden;
+-}
+-
+-
+-.modal-overlay.show {
+-  opacity: 1;
+-  visibility: visible;
+-}
+-
+-.modal-overlay.show .modal {
+-  transform: translateY(0);
+-}
+-
+-.modal {
+-  background: white;
+-  padding: 20px;
+-  border-radius: 5px;
+-  width: 80%;
+-  max-width: 500px;
+-  position: relative;
+-  transform: translateY(-50px);
+-  transition: transform 0.3s ease;
+-}
+-
+-.modal-close {
+-  position: absolute;
+-  top: 10px;
+-  right: 10px;
+-  background: none;
+-  border: none;
+-  font-size: 24px;
+-  cursor: pointer;
+-}
+-
+-.modal-content {
+-  max-height: 400px;
+-  overflow-y: auto;
+-}
+-</style>
+Index: vue-freelance/src/views/SubcategoryView.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/views/SubcategoryView.vue b/vue-freelance/src/views/SubcategoryView.vue
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/views/SubcategoryView.vue	
+@@ -0,0 +1,59 @@
++<template>
++  <div class="subcategory-view">
++    <h1 class="subcategory-title">{{ parentCategory.name }}</h1>
++    <div class="subcategories-grid">
++      <SubcategoryCard
++        v-for="subcategory in subcategories"
++        :key="subcategory.id"
++        :subcategory="subcategory"
++      />
++    </div>
++  </div>
++</template>
++
++<script>
++import SubcategoryCard from '@/components/card/SubcategoryCard.vue';
++
++export default {
++  name: "SubcategoryView",
++  components: {
++    SubcategoryCard
++  },
++  data() {
++    return {
++      parentCategory: {}, // Will hold the data for the parent category
++      subcategories: [], // This will hold the subcategories
++    };
++  },
++  created() {
++    this.fetchSubcategories();
++  },
++  methods: {
++    fetchSubcategories() {
++      const parentId = this.$route.params.parentId;
++      this.$http.get(`/api/categories/${parentId}/`).then((response) => {
++        this.parentCategory = response.data;
++        this.subcategories = response.data.children; // Assuming 'children' holds subcategories
++      });
++    },
++  },
++};
++</script>
++
++<style scoped>
++.subcategory-view {
++  padding: 20px;
++}
++
++.subcategory-title {
++  font-size: 32px;
++  font-weight: bold;
++  margin-bottom: 20px;
++}
++
++.subcategories-grid {
++  display: grid;
++  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
++  gap: 20px;
++}
++</style>
+Index: vue-freelance/src/components/card/SubcategoryCard.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/components/card/SubcategoryCard.vue b/vue-freelance/src/components/card/SubcategoryCard.vue
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/components/card/SubcategoryCard.vue	
+@@ -0,0 +1,68 @@
++<template>
++  <div class="subcategory-card" @click="navigateToSubcategory">
++    <img
++      :src="subcategory.image || '/path/to/default-image.jpg'"
++      alt="Subcategory Image"
++      class="subcategory-image"
++    />
++    <h3 class="subcategory-name">
++      {{ subcategory.name || 'Unknown Subcategory' }}
++    </h3>
++  </div>
++</template>
++
++<script>
++export default {
++  name: "SubcategoryCard",
++  props: {
++    subcategory: {
++      type: Object,
++      required: true,
++    },
++  },
++  methods: {
++    navigateToSubcategory() {
++      if (this.subcategory && this.subcategory.slug && this.subcategory.id) {
++        const path = `/catalog/${this.subcategory.slug}/p${this.subcategory.id}`;
++        // Check if the path is different from the current path before navigating
++        if (this.$route.path !== path) {
++          this.$router.push(path).catch(err => {
++            // Handle navigation errors
++            console.error('Navigation error:', err);
++          });
++        }
++      } else {
++        console.error('Subcategory data is missing or incomplete:', this.subcategory);
++      }
++    }
++  }
++};
++</script>
++
++<style scoped>
++.subcategory-card {
++  border: 1px solid #ddd;
++  padding: 20px;
++  background-color: #fff;
++  border-radius: 8px;
++  text-align: center;
++  cursor: pointer;
++  transition: transform 0.3s ease;
++}
++
++.subcategory-card:hover {
++  transform: scale(1.05);
++}
++
++.subcategory-image {
++  max-width: 100%;
++  height: auto;
++  margin-bottom: 15px;
++}
++
++.subcategory-name {
++  font-size: 18px;
++  font-weight: bold;
++  color: #007bff;
++}
++</style>
+Index: vue-freelance/src/components/card/CategoryCard.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/components/card/CategoryCard.vue b/vue-freelance/src/components/card/CategoryCard.vue
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/components/card/CategoryCard.vue	
+@@ -0,0 +1,64 @@
++<template>
++  <div class="category-card" @click="navigateToCategory">
++    <img :src="category.image" alt="Category Image" class="category-image"/>
++    <h3 class="category-name">{{ category.name }}</h3>
++    <ul class="subcategory-list" v-if="category.children && category.children.length">
++      <li v-for="subcategory in category.children" :key="subcategory.id">
++        {{ subcategory.name }}
++      </li>
++    </ul>
++  </div>
++</template>
++
++<script>
++export default {
++  name: "CategoryCard",
++  props: {
++    category: {
++      type: Object,
++      required: true,
++    },
++  },
++  methods: {
++    navigateToCategory() {
++      this.$router.push(`/catalog/${this.category.slug}/c${this.category.id}`);
++    }
++  }
++};
++</script>
++
++<style scoped>
++.category-card {
++  border: 1px solid #ddd;
++  padding: 20px;
++  background-color: #fff;
++  border-radius: 8px;
++  text-align: center;
++  cursor: pointer;
++  transition: transform 0.3s ease;
++}
++.category-card:hover {
++  transform: scale(1.05);
++}
++.category-image {
++  max-width: 100%;
++  height: auto;
++  margin-bottom: 15px;
++}
++.category-name {
++  font-size: 18px;
++  font-weight: bold;
++  color: #007bff;
++  margin-bottom: 10px;
++}
++.subcategory-list {
++  list-style: none;
++  padding: 0;
++  margin: 0;
++}
++.subcategory-list li {
++  font-size: 14px;
++  color: #333;
++  margin-bottom: 5px;
++}
++</style>
+Index: vue-freelance/src/store/apiClient.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/store/apiClient.js b/vue-freelance/src/store/apiClient.js
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/store/apiClient.js	
+@@ -0,0 +1,50 @@
++import axios from 'axios';
++
++// Создаем экземпляр Axios
++const apiClient = axios.create({
++    baseURL: 'http://localhost:8080/api/',
++    headers: {
++        'Content-Type': 'application/json',
++    },
++});
++
++// Добавляем токен в заголовок Authorization
++apiClient.interceptors.request.use(
++    (config) => {
++        const token = localStorage.getItem('accessToken');
++        if (token) {
++            config.headers.Authorization = `Bearer ${token}`;
++        }
++        return config;
++    },
++    (error) => Promise.reject(error)
++);
++
++// Обрабатываем ошибки и обновляем токен
++apiClient.interceptors.response.use(
++    (response) => response,
++    async (error) => {
++        if (error.response.status === 401 && error.config && !error.config._retry) {
++            const refreshToken = localStorage.getItem('refreshToken');
++            if (refreshToken) {
++                error.config._retry = true;
++                try {
++                    const response = await axios.post('http://localhost:8080/api/token_refresh/', {
++                        refresh: refreshToken,
++                    });
++                    const newAccessToken = response.data.access;
++                    localStorage.setItem('accessToken', newAccessToken);
++                    error.config.headers.Authorization = `Bearer ${newAccessToken}`;
++                    return axios.request(error.config);
++                } catch (refreshError) {
++                    console.error('Token refresh failed', refreshError);
++                    localStorage.clear();
++                    window.location.href = '/login';
++                }
++            }
++        }
++        return Promise.reject(error);
++    }
++);
++
++export default apiClient;
+Index: vue-freelance/package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"name\": \"vue-freelance\",\r\n  \"version\": \"0.1.0\",\r\n  \"private\": true,\r\n  \"scripts\": {\r\n    \"serve\": \"vue-cli-service serve\",\r\n    \"build\": \"vue-cli-service build\",\r\n    \"lint\": \"vue-cli-service lint\"\r\n  },\r\n  \"dependencies\": {\r\n    \"@achrinza/node-ipc\": \"^10.1.11\",\r\n    \"@fortawesome/fontawesome-free\": \"^6.6.0\",\r\n    \"@splidejs/vue-splide\": \"^0.6.12\",\r\n    \"@vuelidate/core\": \"^2.0.3\",\r\n    \"@vuelidate/validators\": \"^2.0.4\",\r\n    \"ant-design-vue\": \"^1.7.8\",\r\n    \"axios\": \"^1.7.3\",\r\n    \"braces\": \"^3.0.3\",\r\n    \"core-js\": \"^3.6.5\",\r\n    \"vue\": \"^2.7.16\",\r\n    \"vue-axios\": \"^2.1.5\",\r\n    \"vue-imask\": \"^6.0.5\",\r\n    \"vue-router\": \"^3.4.3\",\r\n    \"vuelidate\": \"^0.7.7\",\r\n    \"webpack\": \"^5.93.0\",\r\n    \"webpack-cli\": \"^5.1.4\"\r\n  },\r\n  \"devDependencies\": {\r\n    \"@vue/cli-plugin-babel\": \"^5.0.8\",\r\n    \"@vue/cli-plugin-eslint\": \"^3.12.1\",\r\n    \"@vue/cli-service\": \"^5.0.8\",\r\n    \"babel-eslint\": \"^10.1.0\",\r\n    \"eslint\": \"^7.32.0\",\r\n    \"eslint-plugin-vue\": \"^7.0.0\",\r\n    \"sass\": \"^1.77.8\",\r\n    \"sass-loader\": \"^10.5.2\",\r\n    \"vue-loader\": \"^17.4.2\",\r\n    \"vue-template-compiler\": \"^2.7.16\"\r\n  },\r\n  \"eslintConfig\": {\r\n    \"root\": true,\r\n    \"env\": {\r\n      \"node\": true\r\n    },\r\n    \"extends\": [\r\n      \"plugin:vue/essential\",\r\n      \"eslint:recommended\",\r\n      \"plugin:vue/recommended\"\r\n    ],\r\n    \"parserOptions\": {\r\n      \"parser\": \"babel-eslint\"\r\n    },\r\n    \"rules\": {}\r\n  },\r\n  \"browserslist\": [\r\n    \"> 1%\",\r\n    \"last 2 versions\",\r\n    \"not dead\"\r\n  ]\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/package.json b/vue-freelance/package.json
+--- a/vue-freelance/package.json	
++++ b/vue-freelance/package.json	
+@@ -14,14 +14,15 @@
+     "@vuelidate/core": "^2.0.3",
+     "@vuelidate/validators": "^2.0.4",
+     "ant-design-vue": "^1.7.8",
+-    "axios": "^1.7.3",
++    "axios": "^1.7.7",
+     "braces": "^3.0.3",
+     "core-js": "^3.6.5",
+     "vue": "^2.7.16",
+     "vue-axios": "^2.1.5",
+     "vue-imask": "^6.0.5",
+-    "vue-router": "^3.4.3",
++    "vue-router": "^3.6.5",
+     "vuelidate": "^0.7.7",
++    "vuex": "^3.6.2",
+     "webpack": "^5.93.0",
+     "webpack-cli": "^5.1.4"
+   },
+Index: vue-freelance/package-lock.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/package-lock.json b/vue-freelance/package-lock.json
+--- a/vue-freelance/package-lock.json	
++++ b/vue-freelance/package-lock.json	
+@@ -14,14 +14,15 @@
+         "@vuelidate/core": "^2.0.3",
+         "@vuelidate/validators": "^2.0.4",
+         "ant-design-vue": "^1.7.8",
+-        "axios": "^1.7.3",
++        "axios": "^1.7.7",
+         "braces": "^3.0.3",
+         "core-js": "^3.6.5",
+         "vue": "^2.7.16",
+         "vue-axios": "^2.1.5",
+         "vue-imask": "^6.0.5",
+-        "vue-router": "^3.4.3",
++        "vue-router": "^3.6.5",
+         "vuelidate": "^0.7.7",
++        "vuex": "^3.6.2",
+         "webpack": "^5.93.0",
+         "webpack-cli": "^5.1.4"
+       },
+@@ -5475,9 +5476,9 @@
+       "dev": true
+     },
+     "node_modules/axios": {
+-      "version": "1.7.3",
+-      "resolved": "https://registry.npmjs.org/axios/-/axios-1.7.3.tgz",
+-      "integrity": "sha512-Ar7ND9pU99eJ9GpoGQKhKf58GpUOgnzuaB7ueNQ5BMi0p+LZ5oaEnfF999fAArcTIBwXTCHAmGcHOZJaWPq9Nw==",
++      "version": "1.7.7",
++      "resolved": "https://registry.npmjs.org/axios/-/axios-1.7.7.tgz",
++      "integrity": "sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==",
+       "dependencies": {
+         "follow-redirects": "^1.15.6",
+         "form-data": "^4.0.0",
+@@ -17367,6 +17368,14 @@
+         "npm": ">= 3.0.0"
+       }
+     },
++    "node_modules/vuex": {
++      "version": "3.6.2",
++      "resolved": "https://registry.npmjs.org/vuex/-/vuex-3.6.2.tgz",
++      "integrity": "sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw==",
++      "peerDependencies": {
++        "vue": "^2.0.0"
++      }
++    },
+     "node_modules/warning": {
+       "version": "4.0.3",
+       "resolved": "https://registry.npmjs.org/warning/-/warning-4.0.3.tgz",
+@@ -22714,9 +22723,9 @@
+       "dev": true
+     },
+     "axios": {
+-      "version": "1.7.3",
+-      "resolved": "https://registry.npmjs.org/axios/-/axios-1.7.3.tgz",
+-      "integrity": "sha512-Ar7ND9pU99eJ9GpoGQKhKf58GpUOgnzuaB7ueNQ5BMi0p+LZ5oaEnfF999fAArcTIBwXTCHAmGcHOZJaWPq9Nw==",
++      "version": "1.7.7",
++      "resolved": "https://registry.npmjs.org/axios/-/axios-1.7.7.tgz",
++      "integrity": "sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==",
+       "requires": {
+         "follow-redirects": "^1.15.6",
+         "form-data": "^4.0.0",
+@@ -31919,6 +31928,12 @@
+       "resolved": "https://registry.npmjs.org/vuelidate/-/vuelidate-0.7.7.tgz",
+       "integrity": "sha512-pT/U2lDI67wkIqI4tum7cMSIfGcAMfB+Phtqh2ttdXURwvHRBJEAQ0tVbUsW9Upg83Q5QH59bnCoXI7A9JDGnA=="
+     },
++    "vuex": {
++      "version": "3.6.2",
++      "resolved": "https://registry.npmjs.org/vuex/-/vuex-3.6.2.tgz",
++      "integrity": "sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw==",
++      "requires": {}
++    },
+     "warning": {
+       "version": "4.0.3",
+       "resolved": "https://registry.npmjs.org/warning/-/warning-4.0.3.tgz",
+Index: vue-freelance/src/views/Home.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div class=\"home\">\r\n    <Header />\r\n    <UnderHeader />\r\n    <ImageSlider />\r\n    <div class=\"content\">\r\n      <ProductView />\r\n    </div>\r\n    <Footer />\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport Header from '@/components/Header.vue';\r\nimport UnderHeader from '@/components/UnderHeader.vue';\r\nimport Footer from '@/components/Footer.vue';\r\nimport ImageSlider from '@/components/ImageSlider.vue';\r\nimport ProductView from '@/views/ProductView.vue';\r\n\r\nexport default {\r\n  components: {\r\n    Header,\r\n    UnderHeader,\r\n    Footer,\r\n    ImageSlider,\r\n    ProductView\r\n  }\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.home {\r\n  display: flex;\r\n  flex-direction: column;\r\n  min-height: 100vh; /* Обеспечивает, что контент занимает всю высоту экрана */\r\n}\r\n\r\n.content {\r\n  flex: 1; /* Позволяет содержимому занимать оставшееся пространство */\r\n  padding: 1rem;\r\n  background-color: #f9f9f9;\r\n}\r\n\r\n.product-list {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  justify-content: center;\r\n  gap: 1rem; /* Добавляет промежуток между товарами */\r\n}\r\n\r\n@media (max-width: 768px) {\r\n  .product-list {\r\n    flex-direction: column;\r\n    align-items: center;\r\n  }\r\n}\r\n</style>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/views/Home.vue b/vue-freelance/src/views/Home.vue
+--- a/vue-freelance/src/views/Home.vue	
++++ b/vue-freelance/src/views/Home.vue	
+@@ -41,17 +41,6 @@
+   background-color: #f9f9f9;
+ }
+ 
+-.product-list {
+-  display: flex;
+-  flex-wrap: wrap;
+-  justify-content: center;
+-  gap: 1rem; /* Добавляет промежуток между товарами */
+-}
+-
+ @media (max-width: 768px) {
+-  .product-list {
+-    flex-direction: column;
+-    align-items: center;
+-  }
+ }
+ </style>
+Index: vue-freelance/src/views/NotFound.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div class=\"not-found\">\r\n    <Header />\r\n    <div class=\"content\">\r\n      <h1>404 - Страница не найдена</h1>\r\n      <router-link to=\"/\" class=\"home-link\">\r\n        Вернуться на главную\r\n      </router-link>\r\n    </div>\r\n    <Footer />\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport Header from '@/components/Header.vue';\r\nimport Footer from '@/components/Footer.vue';\r\n\r\nexport default {\r\n  components: {\r\n    Header,\r\n    Footer\r\n  }\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.not-found {\r\n  text-align: center;\r\n  padding: 20px;\r\n  min-height: 100vh; /* Полная высота экрана для центрирования по вертикали */\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; /* Центрирование по вертикали */\r\n  background-color: #f9f9f9;\r\n}\r\n\r\n.not-found h1 {\r\n  font-size: 2rem; /* Увеличенный размер шрифта */\r\n  margin-bottom: 20px;\r\n  color: #333; /* Темный цвет для текста */\r\n}\r\n\r\n.home-link {\r\n  padding: 10px 20px;\r\n  background-color: #007bff;\r\n  color: #fff;\r\n  text-decoration: none;\r\n  border-radius: 4px;\r\n  font-size: 1rem; /* Увеличенный размер шрифта */\r\n  transition: background-color 0.3s ease;\r\n}\r\n\r\n.home-link:hover {\r\n  background-color: #0056b3;\r\n}\r\n</style>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/views/NotFound.vue b/vue-freelance/src/views/NotFound.vue
+--- a/vue-freelance/src/views/NotFound.vue	
++++ b/vue-freelance/src/views/NotFound.vue	
+@@ -3,7 +3,10 @@
+     <Header />
+     <div class="content">
+       <h1>404 - Страница не найдена</h1>
+-      <router-link to="/" class="home-link">
++      <router-link
++        to="/"
++        class="home-link"
++      >
+         Вернуться на главную
+       </router-link>
+     </div>
+Index: vue-freelance/src/views/ProductList.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div class=\"product-list-page\">\r\n    <Header />\r\n    <div class=\"content-wrapper\">\r\n      <!-- Sidebar for Brand Filter -->\r\n      <aside class=\"sidebar\">\r\n        <h2>Фильтр</h2>\r\n        <!-- Select for Brand Selection -->\r\n        <a-select\r\n          v-model=\"selectedBrand\"\r\n          placeholder=\"Выберите бренд\"\r\n          style=\"width: 100%;\"\r\n          @change=\"applyFilters\"\r\n        >\r\n          <a-select-option\r\n            v-for=\"brand in brands\"\r\n            :key=\"brand.id\"\r\n            :value=\"brand.id\"\r\n          >\r\n            {{ brand.name }}\r\n          </a-select-option>\r\n        </a-select>\r\n      </aside>\r\n\r\n      <!-- Main Content: Product Grid -->\r\n      <div class=\"product-grid-container\">\r\n        <div class=\"product-grid\">\r\n          <ProductCard\r\n            v-for=\"product in filteredProducts\"\r\n            :key=\"product.id\"\r\n            :product=\"product\"\r\n            @click.native=\"goToProductDetail(product.id)\"\r\n          />\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <Footer />\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport Header from '@/components/Header.vue';\r\nimport Footer from '@/components/Footer.vue';\r\nimport ProductCard from '@/components/ProductCard.vue';\r\nimport { Select } from 'ant-design-vue';\r\nimport axios from 'axios';\r\n\r\nexport default {\r\n  components: {\r\n    Header,\r\n    Footer,\r\n    ProductCard,\r\n    'a-select': Select,\r\n    'a-select-option': Select.Option,\r\n  },\r\n  data() {\r\n    return {\r\n      products: [], // Все продукты\r\n      filteredProducts: [], // Фильтрованные продукты\r\n      brands: [],\r\n      selectedBrand: null,\r\n    };\r\n  },\r\n  watch: {\r\n    selectedBrand: 'applyFilters',\r\n  },\r\n  created() {\r\n    this.fetchProducts();\r\n    this.fetchBrands();\r\n  },\r\n  methods: {\r\n    goToProductDetail(product) {\r\n      const productName = product.name.toLowerCase().replace(/\\s+/g, '-'); // Convert product name to a URL-friendly format\r\n      this.$router.push({\r\n        name: 'ProductDetail',\r\n        params: {\r\n          productName,\r\n          id: product.id\r\n        }\r\n      });\r\n    },\r\n    generateProductSlug(name) {\r\n      return name\r\n        .toLowerCase()\r\n        .replace(/ /g, '-')\r\n        .replace(/[^\\w-]+/g, '');\r\n    },\r\n    async fetchProducts() {\r\n      try {\r\n        const response = await axios.get('/api/products');\r\n        this.products = response.data; // Все продукты\r\n        this.applyFilters(); // Применить фильтры после загрузки\r\n      } catch (error) {\r\n        console.error('Ошибка при загрузке продуктов:', error);\r\n      }\r\n    },\r\n    async fetchBrands() {\r\n      try {\r\n        const response = await axios.get('/api/brands');\r\n        this.brands = response.data;\r\n      } catch (error) {\r\n        console.error('Ошибка при загрузке брендов:', error);\r\n      }\r\n    },\r\n    applyFilters() {\r\n      if (this.selectedBrand) {\r\n        this.filteredProducts = this.products.filter(\r\n          product => product.brand === this.selectedBrand\r\n        );\r\n      } else {\r\n        this.filteredProducts = this.products;\r\n      }\r\n    },\r\n  },\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.product-list-page {\r\n  background-color: #f8f9fa;\r\n  max-width: 1400px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.content-wrapper {\r\n  display: flex;\r\n  gap: 16px;\r\n}\r\n\r\n.sidebar {\r\n  width: 250px;\r\n  background-color: #fff;\r\n  border-radius: 8px;\r\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\r\n  padding: 16px;\r\n  position: sticky;\r\n  top: 20px;\r\n  height: calc(100vh - 40px);\r\n}\r\n\r\n.product-grid-container {\r\n  flex-grow: 1;\r\n}\r\n\r\n.product-grid {\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 16px;\r\n}\r\n\r\n.product-card {\r\n  background-color: #fff;\r\n  border-radius: 8px;\r\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\r\n  padding: 16px;\r\n}\r\n</style>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/views/ProductList.vue b/vue-freelance/src/views/ProductList.vue
+--- a/vue-freelance/src/views/ProductList.vue	
++++ b/vue-freelance/src/views/ProductList.vue	
+@@ -2,10 +2,9 @@
+   <div class="product-list-page">
+     <Header />
+     <div class="content-wrapper">
+-      <!-- Sidebar for Brand Filter -->
+       <aside class="sidebar">
+         <h2>Фильтр</h2>
+-        <!-- Select for Brand Selection -->
++        <!-- Select для выбора бренда -->
+         <a-select
+           v-model="selectedBrand"
+           placeholder="Выберите бренд"
+@@ -22,14 +21,13 @@
+         </a-select>
+       </aside>
+ 
+-      <!-- Main Content: Product Grid -->
+       <div class="product-grid-container">
+         <div class="product-grid">
+           <ProductCard
+             v-for="product in filteredProducts"
+             :key="product.id"
+             :product="product"
+-            @click.native="goToProductDetail(product.id)"
++            @click.native="goToProductDetail(product)"
+           />
+         </div>
+       </div>
+@@ -41,7 +39,7 @@
+ <script>
+ import Header from '@/components/Header.vue';
+ import Footer from '@/components/Footer.vue';
+-import ProductCard from '@/components/ProductCard.vue';
++import ProductCard from '@/components/card/ProductCard.vue';
+ import { Select } from 'ant-design-vue';
+ import axios from 'axios';
+ 
+@@ -53,6 +51,12 @@
+     'a-select': Select,
+     'a-select-option': Select.Option,
+   },
++  props: {
++    categoryId: {
++      type: String,
++      required: true, // categoryId обязательно для фильтрации
++    },
++  },
+   data() {
+     return {
+       products: [], // Все продукты
+@@ -70,7 +74,7 @@
+   },
+   methods: {
+     goToProductDetail(product) {
+-      const productName = product.name.toLowerCase().replace(/\s+/g, '-'); // Convert product name to a URL-friendly format
++      const productName = product.name.toLowerCase().replace(/\s+/g, '-');
+       this.$router.push({
+         name: 'ProductDetail',
+         params: {
+@@ -79,24 +83,18 @@
+         }
+       });
+     },
+-    generateProductSlug(name) {
+-      return name
+-        .toLowerCase()
+-        .replace(/ /g, '-')
+-        .replace(/[^\w-]+/g, '');
+-    },
+     async fetchProducts() {
+       try {
+-        const response = await axios.get('/api/products');
+-        this.products = response.data; // Все продукты
+-        this.applyFilters(); // Применить фильтры после загрузки
++        const response = await axios.get(`/api/products/?category=${this.categoryId}`);
++        this.products = response.data;
++        this.applyFilters(); // Применение фильтрации
+       } catch (error) {
+         console.error('Ошибка при загрузке продуктов:', error);
+       }
+     },
+     async fetchBrands() {
+       try {
+-        const response = await axios.get('/api/brands');
++        const response = await axios.get('/api/brands/');
+         this.brands = response.data;
+       } catch (error) {
+         console.error('Ошибка при загрузке брендов:', error);
+@@ -147,11 +145,4 @@
+   grid-template-columns: repeat(4, 1fr);
+   gap: 16px;
+ }
+-
+-.product-card {
+-  background-color: #fff;
+-  border-radius: 8px;
+-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+-  padding: 16px;
+-}
+ </style>
+Index: vue-freelance/src/store/user.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/store/user.js b/vue-freelance/src/store/user.js
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/store/user.js	
+@@ -0,0 +1,27 @@
++export default {
++  namespaced: true,
++  state: {
++    user: null
++  },
++  getters: {
++    getUser(state) {
++      return state.user
++    }
++  },
++  mutations: {
++    SET_USER(state, payload) {
++      state.user = payload
++    },
++    DELETE_USER(state) {
++      state.user = null
++    }
++  },
++  actions: {
++    setUser({ commit }, payload) {
++      commit('SET_USER', payload)
++    },
++    deleteUser({ commit }) {
++      commit('DELETE_USER')
++    }
++  }
++}
+\ No newline at end of file
+Index: vue-freelance/src/plugins/api.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/plugins/api.js b/vue-freelance/src/plugins/api.js
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/plugins/api.js	
+@@ -0,0 +1,7 @@
++import api from '../api/index'
++
++export default {
++    install(Vue) {
++        Vue.prototype.$api = api
++    }
++}
+\ No newline at end of file
+Index: vue-freelance/src/views/Favorites.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div class=\"favorites\">\r\n    <Header />\r\n    <h1>Избранное</h1>\r\n    <div class=\"favorites-list\">\r\n      <!-- Замени заглушку на компонент для списка избранных товаров -->\r\n      <p v-if=\"!favorites.length\">Ваш список избранного пуст.</p>\r\n      <ul v-else>\r\n        <li v-for=\"item in favorites\" :key=\"item.id\" class=\"favorite-item\">\r\n          <img :src=\"item.image\" :alt=\"item.name\" class=\"favorite-item-image\" />\r\n          <div class=\"favorite-item-details\">\r\n            <h2>{{ item.name }}</h2>\r\n            <p>Цена: {{ item.price }} ₽</p>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n    <Footer />\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport Header from '@/components/Header.vue';\r\nimport Footer from '@/components/Footer.vue';\r\n\r\nexport default {\r\n  components: {\r\n    Header,\r\n    Footer\r\n  },\r\n  data() {\r\n    return {\r\n      favorites: [\r\n        // Пример данных, замените на данные из вашего состояния или API\r\n        {id: 1, name: 'Product 1', price: 10000, image: 'image1.jpg'},\r\n        {id: 2, name: 'Product 2', price: 20000, image: 'image2.jpg'}\r\n      ]\r\n    };\r\n  }\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.favorites {\r\n  background-color: #f9f9f9;\r\n  min-height: 100vh;\r\n}\r\n\r\n.favorites h1 {\r\n  font-size: 2rem;\r\n  margin-bottom: 1rem;\r\n  color: #333;\r\n}\r\n\r\n.favorites-list {\r\n  background: #fff;\r\n  padding: 1rem;\r\n  border-radius: 0.5rem;\r\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\r\n}\r\n\r\n.favorite-item {\r\n  display: flex;\r\n  align-items: center;\r\n  border-bottom: 1px solid #ddd;\r\n  padding: 1rem 0;\r\n}\r\n\r\n.favorite-item:last-child {\r\n  border-bottom: none;\r\n}\r\n\r\n.favorite-item-image {\r\n  width: 100px;\r\n  height: 100px;\r\n  object-fit: cover;\r\n  margin-right: 1rem;\r\n}\r\n\r\n.favorite-item-details {\r\n  flex: 1;\r\n}\r\n\r\n.favorite-item-details h2 {\r\n  margin: 0;\r\n  font-size: 1.25rem;\r\n}\r\n\r\n.favorite-item-details p {\r\n  margin: 0.5rem 0 0;\r\n}\r\n</style>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/views/Favorites.vue b/vue-freelance/src/views/Favorites.vue
+--- a/vue-freelance/src/views/Favorites.vue	
++++ b/vue-freelance/src/views/Favorites.vue	
+@@ -4,10 +4,20 @@
+     <h1>Избранное</h1>
+     <div class="favorites-list">
+       <!-- Замени заглушку на компонент для списка избранных товаров -->
+-      <p v-if="!favorites.length">Ваш список избранного пуст.</p>
++      <p v-if="!favorites.length">
++        Ваш список избранного пуст.
++      </p>
+       <ul v-else>
+-        <li v-for="item in favorites" :key="item.id" class="favorite-item">
+-          <img :src="item.image" :alt="item.name" class="favorite-item-image" />
++        <li
++          v-for="item in favorites"
++          :key="item.id"
++          class="favorite-item"
++        >
++          <img
++            :src="item.image"
++            :alt="item.name"
++            class="favorite-item-image"
++          >
+           <div class="favorite-item-details">
+             <h2>{{ item.name }}</h2>
+             <p>Цена: {{ item.price }} ₽</p>
+@@ -30,11 +40,7 @@
+   },
+   data() {
+     return {
+-      favorites: [
+-        // Пример данных, замените на данные из вашего состояния или API
+-        {id: 1, name: 'Product 1', price: 10000, image: 'image1.jpg'},
+-        {id: 2, name: 'Product 2', price: 20000, image: 'image2.jpg'}
+-      ]
++      favorites: []
+     };
+   }
+ };
+Index: vue-freelance/src/views/CategoryView.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/views/CategoryView.vue b/vue-freelance/src/views/CategoryView.vue
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/views/CategoryView.vue	
+@@ -0,0 +1,58 @@
++<template>
++  <div class="category-view">
++    <h1 class="category-title">Каталог товаров</h1>
++    <div class="categories-grid">
++      <CategoryCard
++        v-for="category in categories"
++        :key="category.id"
++        :category="category"
++      />
++    </div>
++  </div>
++</template>
++
++<script>
++import CategoryCard from '@/components/card/CategoryCard.vue';
++
++export default {
++  name: "CategoryView",
++  components: {
++    CategoryCard
++  },
++  data() {
++    return {
++      categories: [], // This will be populated from the API
++    };
++  },
++  created() {
++    this.fetchCategories();
++  },
++  methods: {
++    fetchCategories() {
++      // Replace with your actual API call
++      this.$http.get("/api/categories/").then((response) => {
++        // Filter for only parent categories
++        this.categories = response.data.filter(category => category.parent === null);
++      });
++    },
++  },
++};
++</script>
++
++<style scoped>
++.category-view {
++  padding: 20px;
++}
++
++.category-title {
++  font-size: 32px;
++  font-weight: bold;
++  margin-bottom: 20px;
++}
++
++.categories-grid {
++  display: grid;
++  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
++  gap: 20px;
++}
++</style>
+Index: vue-freelance/src/api/auth.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/api/auth.js b/vue-freelance/src/api/auth.js
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/api/auth.js	
+@@ -0,0 +1,13 @@
++export default function(instance) {
++  return {
++    login(payload) {
++      return instance.post('api/login', payload)
++    },
++    register(payload) {
++      return instance.post('api/register', payload)
++    }
++    // logout() {
++    //   return instance.delete('api/logout')
++    // }
++  }
++}
+\ No newline at end of file
+Index: vue-freelance/src/api/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/api/index.js b/vue-freelance/src/api/index.js
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/api/index.js	
+@@ -0,0 +1,7 @@
++import instance from './instance'
++
++import authModule from './auth'
++
++export default {
++  auth: authModule(instance)
++}
+Index: vue-freelance/src/api/instance.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/api/instance.js b/vue-freelance/src/api/instance.js
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/api/instance.js	
+@@ -0,0 +1,11 @@
++import axios from 'axios'
++
++const instance = axios.create({
++  baseURL: 'http://127.0.0.1:8000/',
++  withCredentials: true,
++  headers: {
++    accept: 'application/json'
++  }
++})
++
++export default instance
+\ No newline at end of file
+Index: vue-freelance/src/store/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import Vue from 'vue';\r\nimport Vuex from 'vuex';\r\nimport axios from 'axios';\r\n\r\nVue.use(Vuex);\r\n\r\nexport default new Vuex.Store({\r\n  state: {\r\n    user: null, // для хранения информации о текущем пользователе\r\n    token: null, // для хранения токена аутентификации\r\n    products: [], // для хранения списка продуктов\r\n    categories: [], // для хранения списка категорий\r\n    brands: [], // для хранения списка брендов\r\n    isLoading: false, // состояние загрузки\r\n  },\r\n  mutations: {\r\n    SET_USER(state, user) {\r\n      state.user = user;\r\n    },\r\n    SET_TOKEN(state, token) {\r\n      state.token = token;\r\n    },\r\n    LOGOUT(state) {\r\n      state.user = null;\r\n      state.token = null;\r\n    },\r\n    SET_PRODUCTS(state, products) {\r\n      state.products = products;\r\n    },\r\n    SET_CATEGORIES(state, categories) {\r\n      state.categories = categories;\r\n    },\r\n    SET_BRANDS(state, brands) {\r\n      state.brands = brands;\r\n    },\r\n    SET_LOADING(state, isLoading) {\r\n      state.isLoading = isLoading;\r\n    },\r\n  },\r\n  actions: {\r\n    async login({ commit }, credentials) {\r\n      try {\r\n        const response = await axios.post('/api/login/', credentials);\r\n        const { access } = response.data;\r\n\r\n        commit('SET_TOKEN', access);\r\n\r\n        // Получите информацию о пользователе\r\n        const userResponse = await axios.get('/api/protected/', {\r\n          headers: { Authorization: `JWT ${access}` }\r\n        });\r\n        commit('SET_USER', userResponse.data);\r\n\r\n      } catch (error) {\r\n        console.error('Login failed:', error);\r\n        throw error;\r\n      }\r\n    },\r\n    logout({ commit }) {\r\n      commit('LOGOUT');\r\n    },\r\n    async fetchProducts({ commit }) {\r\n      commit('SET_LOADING', true);\r\n      try {\r\n        const response = await axios.get('/api/products/');\r\n        commit('SET_PRODUCTS', response.data);\r\n      } catch (error) {\r\n        console.error('Failed to fetch products:', error);\r\n      } finally {\r\n        commit('SET_LOADING', false);\r\n      }\r\n    },\r\n    async fetchCategories({ commit }) {\r\n      commit('SET_LOADING', true);\r\n      try {\r\n        const response = await axios.get('/api/categories/');\r\n        commit('SET_CATEGORIES', response.data);\r\n      } catch (error) {\r\n        console.error('Failed to fetch categories:', error);\r\n      } finally {\r\n        commit('SET_LOADING', false);\r\n      }\r\n    },\r\n    async fetchBrands({ commit }) {\r\n      commit('SET_LOADING', true);\r\n      try {\r\n        const response = await axios.get('/api/brands/');\r\n        commit('SET_BRANDS', response.data);\r\n      } catch (error) {\r\n        console.error('Failed to fetch brands:', error);\r\n      } finally {\r\n        commit('SET_LOADING', false);\r\n      }\r\n    },\r\n  },\r\n  getters: {\r\n    isAuthenticated(state) {\r\n      return !!state.token;\r\n    },\r\n    currentUser(state) {\r\n      return state.user;\r\n    },\r\n    allProducts(state) {\r\n      return state.products;\r\n    },\r\n    allCategories(state) {\r\n      return state.categories;\r\n    },\r\n    allBrands(state) {\r\n      return state.brands;\r\n    },\r\n    loading(state) {\r\n      return state.isLoading;\r\n    },\r\n  },\r\n});\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/store/index.js b/vue-freelance/src/store/index.js
+--- a/vue-freelance/src/store/index.js	
++++ b/vue-freelance/src/store/index.js	
+@@ -1,116 +1,80 @@
+-import Vue from 'vue';
+-import Vuex from 'vuex';
+-import axios from 'axios';
++import { createStore } from 'vuex'
++import axios from 'axios'
+ 
+-Vue.use(Vuex);
+-
+-export default new Vuex.Store({
++export default createStore({
+   state: {
+-    user: null, // для хранения информации о текущем пользователе
+-    token: null, // для хранения токена аутентификации
+-    products: [], // для хранения списка продуктов
+-    categories: [], // для хранения списка категорий
+-    brands: [], // для хранения списка брендов
+-    isLoading: false, // состояние загрузки
++    auth_user: null,
++    user_info: null,
++    categories: [],
++    v_error: [],
++  },
++  getters: {
++    auth_user(state) {
++      return state.auth_user
++    },
++    user_info(state) {
++      return state.user_info
++    },
++    categories(state) {
++      return state.categories
++    },
++    v_error(state) {
++      return state.v_error
++    }
+   },
+   mutations: {
+-    SET_USER(state, user) {
+-      state.user = user;
+-    },
+-    SET_TOKEN(state, token) {
+-      state.token = token;
+-    },
+-    LOGOUT(state) {
+-      state.user = null;
+-      state.token = null;
+-    },
+-    SET_PRODUCTS(state, products) {
+-      state.products = products;
++    setAuthUser(state, payload) {
++      state.auth_user = payload
+     },
+-    SET_CATEGORIES(state, categories) {
+-      state.categories = categories;
++    setUserInfo(state, payload) {
++      state.user_info = payload
+     },
+-    SET_BRANDS(state, brands) {
+-      state.brands = brands;
++    setCategory(state, payload) {
++      state.categories = payload
+     },
+-    SET_LOADING(state, isLoading) {
+-      state.isLoading = isLoading;
+-    },
++    setError(state, payload) {
++      state.v_error = payload
++    }
+   },
+   actions: {
+-    async login({ commit }, credentials) {
+-      try {
+-        const response = await axios.post('/api/login/', credentials);
+-        const { access } = response.data;
+-
+-        commit('SET_TOKEN', access);
+-
+-        // Получите информацию о пользователе
+-        const userResponse = await axios.get('/api/protected/', {
+-          headers: { Authorization: `JWT ${access}` }
+-        });
+-        commit('SET_USER', userResponse.data);
+-
+-      } catch (error) {
+-        console.error('Login failed:', error);
+-        throw error;
+-      }
+-    },
+-    logout({ commit }) {
+-      commit('LOGOUT');
++    getAuthUser({ commit }) {
++      axios.get('/api/auth_user').then(response => {
++        if (response.data.status == 200) {
++          commit('setAuthUser', response.data.data)
++        }
++        if (response.data.status == 400) {
++          commit('setAuthUser', null)
++        }
++      })
+     },
+-    async fetchProducts({ commit }) {
+-      commit('SET_LOADING', true);
+-      try {
+-        const response = await axios.get('/api/products/');
+-        commit('SET_PRODUCTS', response.data);
+-      } catch (error) {
+-        console.error('Failed to fetch products:', error);
+-      } finally {
+-        commit('SET_LOADING', false);
+-      }
++    updateAuthUser({ commit }, data) {
++      axios.put('/api/auth_user/', data, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
++        if (response.data.status == 200) {
++          commit('setAuthUser', response.data.data)
++        }
++        if (response.data.status == 400) {
++          commit('setError', response.data.data)
++        }
++      })
+     },
+-    async fetchCategories({ commit }) {
+-      commit('SET_LOADING', true);
+-      try {
+-        const response = await axios.get('/api/categories/');
+-        commit('SET_CATEGORIES', response.data);
+-      } catch (error) {
+-        console.error('Failed to fetch categories:', error);
+-      } finally {
+-        commit('SET_LOADING', false);
+-      }
++    userProfileInfo({ commit }, id) {
++      axios.get(`profile/${id}/`).then(response => {
++        if (response.data.status == 200) {
++          commit('setUserInfo', response.data.data)
++        }
++
++        if (response.data.status == 400) {
++          commit('setUserInfo', null)
++        }
++      })
+     },
+-    async fetchBrands({ commit }) {
+-      commit('SET_LOADING', true);
+-      try {
+-        const response = await axios.get('/api/brands/');
+-        commit('SET_BRANDS', response.data);
+-      } catch (error) {
+-        console.error('Failed to fetch brands:', error);
+-      } finally {
+-        commit('SET_LOADING', false);
+-      }
++    getCategories({ commit }) {
++      axios.get(`category/`).then((response) => {
++        if (response.status == 200) {
++          commit('setCategory', response.data.data)
++        }
++      })
+     },
+   },
+-  getters: {
+-    isAuthenticated(state) {
+-      return !!state.token;
+-    },
+-    currentUser(state) {
+-      return state.user;
+-    },
+-    allProducts(state) {
+-      return state.products;
+-    },
+-    allCategories(state) {
+-      return state.categories;
+-    },
+-    allBrands(state) {
+-      return state.brands;
+-    },
+-    loading(state) {
+-      return state.isLoading;
+-    },
+-  },
+-});
++  modules: {}
++})
+Index: vue-freelance/src/components/card/SubsubcategoryCard.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/components/card/SubsubcategoryCard.vue b/vue-freelance/src/components/card/SubsubcategoryCard.vue
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/components/card/SubsubcategoryCard.vue	
+@@ -0,0 +1,54 @@
++<template>
++  <div class="subsubcategory-card" @click="navigateToSubsubcategory">
++    <img
++      :src="subsubcategory.image"
++      alt="Subsubcategory Image"
++      class="subsubcategory-image"
++    />
++    <h3 class="subsubcategory-name">
++      {{ subsubcategory.name }}
++    </h3>
++  </div>
++</template>
++
++<script>
++export default {
++  name: "SubsubcategoryCard",
++  props: {
++    subsubcategory: {
++      type: Object,
++      required: true,
++    },
++  },
++  methods: {
++    navigateToSubsubcategory() {
++      this.$router.push(`/catalog/${this.subsubcategory.slug}/c${this.subsubcategory.id}`);
++    }
++  }
++};
++</script>
++
++<style scoped>
++.subsubcategory-card {
++  border: 1px solid #ddd;
++  padding: 20px;
++  background-color: #fff;
++  border-radius: 8px;
++  text-align: center;
++  cursor: pointer;
++  transition: transform 0.3s ease;
++}
++.subsubcategory-card:hover {
++  transform: scale(1.05);
++}
++.subsubcategory-image {
++  max-width: 100%;
++  height: auto;
++  margin-bottom: 15px;
++}
++.subsubcategory-name {
++  font-size: 18px;
++  font-weight: bold;
++  color: #007bff;
++}
++</style>
+Index: vue-freelance/src/main.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import Vue from 'vue';\r\nimport App from './App.vue';\r\nimport axios from 'axios';\r\nimport VueAxios from 'vue-axios';\r\nimport router from '@/router/index';  // Ensure the path is correct\r\nimport Vuelidate from 'vuelidate';\r\nimport '@fortawesome/fontawesome-free/css/all.css';\r\nimport Antd from 'ant-design-vue';\r\nimport 'ant-design-vue/dist/antd.css';\r\n\r\n// Disable production tip in console\r\nVue.config.productionTip = false;\r\n\r\n// Register plugins\r\nVue.use(VueAxios, axios);\r\nVue.use(Vuelidate);\r\nVue.use(Antd);\r\n\r\n// Set Axios globally\r\nVue.prototype.$axios = axios;\r\n\r\n// Create Vue instance\r\nnew Vue({\r\n  render: h => h(App),\r\n  router,\r\n}).$mount('#app');\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/main.js b/vue-freelance/src/main.js
+--- a/vue-freelance/src/main.js	
++++ b/vue-freelance/src/main.js	
+@@ -7,11 +7,13 @@
+ import '@fortawesome/fontawesome-free/css/all.css';
+ import Antd from 'ant-design-vue';
+ import 'ant-design-vue/dist/antd.css';
+-
++import store from '@/store/index';
++import ApiPlugin from './plugins/api'
+ // Disable production tip in console
+ Vue.config.productionTip = false;
+ 
+ // Register plugins
++Vue.use(ApiPlugin);
+ Vue.use(VueAxios, axios);
+ Vue.use(Vuelidate);
+ Vue.use(Antd);
+@@ -23,4 +25,5 @@
+ new Vue({
+   render: h => h(App),
+   router,
++  store,
+ }).$mount('#app');
+Index: vue-freelance/src/views/SubsubcategoryView.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/views/SubsubcategoryView.vue b/vue-freelance/src/views/SubsubcategoryView.vue
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/views/SubsubcategoryView.vue	
+@@ -0,0 +1,78 @@
++<template>
++  <div class="subsubcategory-view">
++    <h1 class="subsubcategory-title">{{ subcategory.name }}</h1>
++    <div class="subsubcategories-grid">
++      <SubsubcategoryCard
++        v-for="subsubcategory in subsubcategories"
++        :key="subsubcategory.id"
++        :subsubcategory="subsubcategory"
++      />
++    </div>
++  </div>
++</template>
++
++<script>
++import SubsubcategoryCard from '@/components/card/SubsubcategoryCard.vue';
++
++export default {
++  name: "SubsubcategoryView",
++  components: {
++    SubsubcategoryCard
++  },
++  data() {
++    return {
++      subcategory: {}, // Will hold the data for the subcategory
++      subsubcategories: [], // This will hold the subsubcategories
++      loading: true, // Added loading state
++    };
++  },
++  created() {
++    this.fetchSubsubcategories();
++  },
++  methods: {
++    fetchSubsubcategories() {
++      const subcategoryId = this.$route.params.subcategoryId;
++      this.$http.get(`/api/categories/${subcategoryId}/`)
++        .then((response) => {
++          this.subcategory = response.data;
++          this.subsubcategories = response.data.children || []; // Assuming 'children' holds subsubcategories
++        })
++        .catch((error) => {
++          console.error('Error fetching subsubcategories:', error);
++          // Optionally show an error message
++        })
++        .finally(() => {
++          this.loading = false; // Hide loading indicator
++        });
++    },
++  },
++};
++</script>
++
++<style scoped>
++.subsubcategory-view {
++  padding: 20px;
++}
++
++.subsubcategory-title {
++  font-size: 32px;
++  font-weight: bold;
++  margin-bottom: 20px;
++}
++
++.subsubcategories-grid {
++  display: grid;
++  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
++  gap: 20px;
++}
++
++.loading {
++  font-size: 18px;
++  color: #888;
++}
++
++.empty-state {
++  font-size: 18px;
++  color: #888;
++}
++</style>
+Index: vue-freelance/src/components/Header.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <header class=\"header\">\r\n    <div class=\"container\">\r\n      <div\r\n        class=\"logo\"\r\n        @click=\"home\"\r\n      >\r\n        MY STORE\r\n      </div>\r\n      <div v-if=\"!isProductListPage\" class=\"search-bar\">\r\n        <input\r\n          v-model=\"searchQuery\"\r\n          type=\"text\"\r\n          placeholder=\"Поиск...\"\r\n          @keyup.enter=\"search\"\r\n        >\r\n        <img\r\n          src=\"../assets/images/search.svg\"\r\n          alt=\"Search\"\r\n          @click=\"search\"\r\n        >\r\n      </div>\r\n      <div class=\"icons\">\r\n        <div class=\"icon-item\">\r\n          <img\r\n            src=\"../assets/images/heart.svg\"\r\n            alt=\"Favorites\"\r\n            @click=\"goToFavorites\"\r\n          >\r\n          <button @click=\"goToFavorites\">\r\n            Избранное\r\n          </button>\r\n        </div>\r\n        <div class=\"icon-item\">\r\n          <img\r\n            src=\"../assets/images/basket.svg\"\r\n            alt=\"Cart\"\r\n            @click=\"goToCart\"\r\n          >\r\n          <button @click=\"goToCart\">\r\n            Корзина\r\n          </button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </header>\r\n</template>\r\n\r\n<script>\r\nexport default {\r\n  data() {\r\n    return {\r\n      searchQuery: ''\r\n    };\r\n  },\r\n  computed: {\r\n    isProductListPage() {\r\n      return this.$route.name === 'ProductList';\r\n    }\r\n  },\r\n  methods: {\r\n    home() {\r\n      if (this.$route.name !== 'Home') {\r\n        this.$router.push({ name: 'Home' });\r\n      }\r\n    },\r\n    search() {\r\n      console.log('Search query:', this.searchQuery);\r\n      this.$router.push({ name: 'ProductList', query: { search: this.searchQuery } });\r\n    },\r\n    goToFavorites() {\r\n      if (this.$route.name !== 'Favorites'){\r\n        this.$router.push({name: 'Favorites'});\r\n      }\r\n    },\r\n    goToCart() {\r\n      if (this.$route.name !== 'Cart'){\r\n        this.$router.push({name: 'Cart'});\r\n      }\r\n    }\r\n  }\r\n};\r\n</script>\r\n\r\n<style>\r\n.header {\r\n  background-color: #f8f8f8;\r\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\r\n  padding: 5px;\r\n  position: fixed; /* Закрепляем хедер */\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  z-index: 1000; /* Чтобы хедер был выше других элементов */\r\n  transition: all 0.3s ease; /* Плавный переход */\r\n}\r\n\r\n.container {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  max-width: 1400px;\r\n  margin: 0 auto;\r\n  padding: 0 20px;\r\n}\r\n\r\n.logo {\r\n  font-size: 35px;\r\n  font-weight: bold;\r\n  color: #333;\r\n  cursor: pointer;\r\n}\r\n\r\n.search-bar {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n\r\n.search-bar input {\r\n  padding: 10px;\r\n  border: 1px solid #ddd;\r\n  border-radius: 4px;\r\n  margin-right: 10px;\r\n  font-size: 16px;\r\n  width: 400px;\r\n  transition: border-color 0.3s ease; /* Плавный переход */\r\n}\r\n\r\n.search-bar input:focus {\r\n  border-color: #333;\r\n  outline: none;\r\n}\r\n\r\n.search-bar img {\r\n  cursor: pointer;\r\n  height: 24px;\r\n  width: 24px;\r\n  transition: opacity 0.3s ease; /* Плавный переход */\r\n}\r\n\r\n.search-bar img:hover {\r\n  opacity: 0.7;\r\n}\r\n\r\n.icons {\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.icon-item {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-flow: column;\r\n  justify-content: center;\r\n}\r\n\r\n.icon-item img {\r\n  cursor: pointer;\r\n  height: 24px;\r\n  width: 24px;\r\n  margin: 0 4px 2px;\r\n  transition: opacity 0.3s ease; /* Плавный переход */\r\n}\r\n\r\n.icon-item button {\r\n  background-color: transparent;\r\n  border: none;\r\n  font-size: 16px;\r\n  cursor: pointer;\r\n  color: #333;\r\n  transition: color 0.3s ease; /* Плавный переход */\r\n}\r\n\r\n.icon-item button:hover {\r\n  color: #000;\r\n  text-decoration: underline;\r\n}\r\n\r\n.icon-item button:focus {\r\n  outline: 2px solid #007bff;\r\n  outline-offset: 2px;\r\n}\r\n\r\n/* Добавляем отступ для основного контента, чтобы он не перекрывался хедером */\r\nbody {\r\n  padding-top: 60px; /* Размер хедера + отступ для стиля */\r\n}\r\n\r\n@media (max-width: 768px) {\r\n  .logo {\r\n    font-size: 24px;\r\n  }\r\n\r\n  .search-bar input {\r\n    width: 200px;\r\n    font-size: 14px;\r\n  }\r\n\r\n  .icons {\r\n    display: none; /* Или отобразите иконки в компактном виде */\r\n  }\r\n}\r\n\r\n</style>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/components/Header.vue b/vue-freelance/src/components/Header.vue
+--- a/vue-freelance/src/components/Header.vue	
++++ b/vue-freelance/src/components/Header.vue	
+@@ -7,7 +7,7 @@
+       >
+         MY STORE
+       </div>
+-      <div v-if="!isProductListPage" class="search-bar">
++      <div class="search-bar">
+         <input
+           v-model="searchQuery"
+           type="text"
+@@ -53,20 +53,24 @@
+       searchQuery: ''
+     };
+   },
+-  computed: {
+-    isProductListPage() {
+-      return this.$route.name === 'ProductList';
+-    }
+-  },
+   methods: {
+     home() {
+       if (this.$route.name !== 'Home') {
+         this.$router.push({ name: 'Home' });
+       }
+     },
+-    search() {
+-      console.log('Search query:', this.searchQuery);
+-      this.$router.push({ name: 'ProductList', query: { search: this.searchQuery } });
++    async search() {
++      const query = this.searchQuery;
++      const currentQuery = this.$route.query.search || '';
++      if (query !== currentQuery) {
++        try {
++          await this.$router.push({ query: { search: query } });
++        } catch (err) {
++          if (err.name !== 'NavigationDuplicated') {
++            console.error(err);
++          }
++        }
++      }
+     },
+     goToFavorites() {
+       if (this.$route.name !== 'Favorites'){
+Index: vue-freelance/src/components/auth/RegisterForm.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/components/auth/RegisterForm.vue b/vue-freelance/src/components/auth/RegisterForm.vue
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/components/auth/RegisterForm.vue	
+@@ -0,0 +1,228 @@
++<template>
++  <div class="auth-form-container">
++    <h3 class="text-center color-primary">Sign Up Here</h3>
++    <form class="auth-form" @submit.prevent="signup">
++      <div class="form-group">
++        <label for="username">Name</label>
++        <input
++          id="username"
++          v-model="username"
++          class="form-control"
++          :class="{ 'border-danger': hasUsernameError }"
++          type="text"
++          placeholder="Enter your name"
++          autocomplete="username"
++          required
++          @keyup="clearError('username')"
++        >
++        <small class="color-danger">{{ usernameError }}</small>
++      </div>
++      <div class="form-group">
++        <label for="email">Email</label>
++        <input
++          id="email"
++          v-model="email"
++          class="form-control"
++          :class="{ 'border-danger': hasEmailError }"
++          type="email"
++          placeholder="Enter your email"
++          autocomplete="email"
++          required
++          @keyup="clearError('email')"
++        >
++        <small class="color-danger">{{ emailError }}</small>
++      </div>
++      <div class="form-group">
++        <label for="password">Password</label>
++        <input
++          id="password"
++          v-model="password"
++          class="form-control"
++          :class="{ 'border-danger': hasPasswordError }"
++          type="password"
++          placeholder="Enter your password"
++          required
++          autocomplete="new-password"
++          @keyup="clearError('password')"
++        >
++        <small class="color-danger">{{ passwordError }}</small>
++      </div>
++      <div class="form-group">
++        <label for="password2">Confirm Password</label>
++        <input
++          id="password2"
++          v-model="password2"
++          class="form-control"
++          :class="{ 'border-danger': hasPassword2Error }"
++          type="password"
++          placeholder="Confirm your password"
++          required
++          autocomplete="new-password"
++          @keyup="clearError('password2')"
++        >
++        <small class="color-danger">{{ password2Error }}</small>
++      </div>
++      <button type="submit" class="btn btn-primary">Sign up</button>
++      <p class="text-center">
++        Already have an account?
++        <span class="color-primary login-btn cursor-pointer" @click="showLoginForm">Login</span>
++      </p>
++    </form>
++  </div>
++</template>
++
++<script>
++export default {
++  data() {
++    return {
++      username: '',
++      email: '',
++      password: '',
++      password2: '',
++
++      usernameError: '',
++      hasUsernameError: false,
++      emailError: '',
++      hasEmailError: false,
++      passwordError: '',
++      hasPasswordError: false,
++      password2Error: '',
++      hasPassword2Error: false,
++    }
++  },
++  methods: {
++    async signup() {
++      try {
++        const response = await this.$axios.post('/api/register/', {
++          username: this.username,
++          email: this.email,
++          password: this.password,
++          password2: this.password2,
++        });
++
++        if (response.status === 200 && response.data.status === 'success') {
++          this.$root.message = response.data.message; // Success message
++          this.showLoginForm(); // Show login form after successful signup
++        } else {
++          this.handleErrors(response.data.errors); // Handle server-side validation errors
++        }
++      } catch (error) {
++        console.error('Signup error:', error);
++        this.signupError = 'An error occurred during registration. Please try again.';
++      }
++    },
++    handleErrors(errors) {
++      this.usernameError = errors.username ? errors.username[0] : '';
++      this.hasUsernameError = !!errors.username;
++
++      this.emailError = errors.email ? errors.email[0] : '';
++      this.hasEmailError = !!errors.email;
++
++      this.passwordError = errors.password ? errors.password[0] : '';
++      this.hasPasswordError = !!errors.password;
++
++      this.password2Error = errors.password2 ? errors.password2[0] : '';
++      this.hasPassword2Error = !!errors.password2;
++    },
++    clearError(field) {
++      if (field === 'username') {
++        this.usernameError = '';
++        this.hasUsernameError = false;
++      } else if (field === 'email') {
++        this.emailError = '';
++        this.hasEmailError = false;
++      } else if (field === 'password') {
++        this.passwordError = '';
++        this.hasPasswordError = false;
++      } else if (field === 'password2') {
++        this.password2Error = '';
++        this.hasPassword2Error = false;
++      }
++    },
++    showLoginForm() {
++      this.$emit('show-login'); // Emit event to show login form
++    }
++  }
++}
++</script>
++
++<style scoped>
++.auth-form-container {
++  width: 100%;
++  max-width: 400px;
++  margin: 0 auto;
++  padding: 20px;
++  background-color: #fff;
++  border-radius: 10px;
++  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
++}
++
++.auth-form-container h3 {
++  margin-bottom: 20px;
++  font-size: 24px;
++  color: #333;
++}
++
++.form-group {
++  margin-bottom: 20px;
++}
++
++.form-group label {
++  display: block;
++  margin-bottom: 5px;
++  font-weight: 500;
++  color: #333;
++}
++
++.form-group input {
++  width: 100%;
++  padding: 10px;
++  font-size: 16px;
++  border: 1px solid #ccc;
++  border-radius: 5px;
++  box-sizing: border-box;
++}
++
++.form-group input:focus {
++  outline: none;
++  border-color: #007bff;
++  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
++}
++
++.form-group input.border-danger {
++  border-color: #dc3545;
++}
++
++.color-danger {
++  color: #dc3545;
++  font-size: 14px;
++}
++
++.color-primary {
++  color: #007bff;
++}
++
++.btn {
++  width: 100%;
++  padding: 10px;
++  font-size: 16px;
++  background-color: #007bff;
++  color: #fff;
++  border: none;
++  border-radius: 5px;
++  cursor: pointer;
++  transition: background-color 0.3s ease;
++}
++
++.btn:hover {
++  background-color: #0056b3;
++}
++
++.text-center {
++  text-align: center;
++}
++
++.cursor-pointer {
++  cursor: pointer;
++}
++</style>
+Index: vue-freelance/src/components/UnderHeader.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div class=\"underheader-container\">\r\n    <nav class=\"underheader\">\r\n      <ul class=\"menu\">\r\n        <li class=\"menu-item\">\r\n          <CategoryTreeView :categories=\"categories\" />\r\n        </li>\r\n        <div class=\"menu-item login-container\">\r\n          <img src=\"../assets/images/person.svg\" alt=\"SignIn\" @click=\"openLoginModal\" />\r\n          <span class=\"login-btn\" @click=\"openLoginModal\">Вход</span> /\r\n          <span class=\"login-btn\" @click=\"openRegisterModal\">Регистрация</span>\r\n        </div>\r\n      </ul>\r\n    </nav>\r\n    <LoginModal v-if=\"isLoginModalVisible\" @close=\"closeLoginModal\" @show-register=\"openRegisterModal\" />\r\n    <RegisterModal v-if=\"isRegisterModalVisible\" @close=\"closeRegisterModal\" @show-login=\"openLoginModal\" />\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport axios from 'axios';\r\nimport CategoryTreeView from '@/views/CategoryTreeView.vue';\r\nimport LoginModal from '@/components/LoginModal.vue';\r\nimport RegisterModal from '@/components/RegisterModal.vue'; // Импортируйте компонент модального окна регистрации\r\n\r\nexport default {\r\n  name: \"UnderHeader\",\r\n  components: { CategoryTreeView, LoginModal, RegisterModal },\r\n  data() {\r\n    return {\r\n      categories: [],\r\n      loading: true,\r\n      error: null,\r\n      isLoginModalVisible: false, // Состояние видимости модального окна входа\r\n      isRegisterModalVisible: false, // Состояние видимости модального окна регистрации\r\n    };\r\n  },\r\n  methods: {\r\n    async fetchCategories() {\r\n      try {\r\n        const response = await axios.get('/api/categories/');\r\n        this.categories = response.data;\r\n      } catch (err) {\r\n        this.error = 'Failed to fetch categories';\r\n        console.error(err);\r\n      } finally {\r\n        this.loading = false;\r\n      }\r\n    },\r\n    openLoginModal() {\r\n      this.isLoginModalVisible = true;\r\n      this.isRegisterModalVisible = false;\r\n    },\r\n    closeLoginModal() {\r\n      this.isLoginModalVisible = false;\r\n    },\r\n    openRegisterModal() {\r\n      this.isRegisterModalVisible = true;\r\n      this.isLoginModalVisible = false;\r\n    },\r\n    closeRegisterModal() {\r\n      this.isRegisterModalVisible = false;\r\n    }\r\n  },\r\n  mounted() {\r\n    this.fetchCategories();\r\n  }\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.underheader-container {\r\n  width: 100%;\r\n  background-color: white;\r\n}\r\n\r\n.underheader {\r\n  max-width: 1400px;\r\n  margin: 0 auto;\r\n  padding: 10px;\r\n}\r\n\r\n.menu {\r\n  list-style: none;\r\n  padding: 0;\r\n  margin: 0;\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.menu-item {\r\n  position: relative;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.menu-item img {\r\n  cursor: pointer;\r\n  height: 24px;\r\n  width: 24px;\r\n  margin-right: 8px;\r\n}\r\n\r\n.menu-item > a {\r\n  color: black;\r\n  background: none;\r\n  text-decoration: none;\r\n}\r\n\r\n.menu-item > button:hover {\r\n  background-color: #007bff;\r\n}\r\n\r\n.login-container {\r\n  display: flex;\r\n  align-items: center;\r\n  font-size: 17px;\r\n}\r\n\r\n.login-btn {\r\n  cursor: pointer;\r\n  color: #007bff;\r\n}\r\n</style>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/components/UnderHeader.vue b/vue-freelance/src/components/UnderHeader.vue
+--- a/vue-freelance/src/components/UnderHeader.vue	
++++ b/vue-freelance/src/components/UnderHeader.vue	
+@@ -5,23 +5,45 @@
+         <li class="menu-item">
+           <CategoryTreeView :categories="categories" />
+         </li>
+-        <div class="menu-item login-container">
+-          <img src="../assets/images/person.svg" alt="SignIn" @click="openLoginModal" />
+-          <span class="login-btn" @click="openLoginModal">Вход</span> /
+-          <span class="login-btn" @click="openRegisterModal">Регистрация</span>
+-        </div>
++        <li class="menu-item login-container">
++          <img
++            alt="SignIn"
++            src="../assets/images/person.svg"
++            @click="openLoginModal"
++          >
++          <span
++            class="login-btn"
++            @click="openLoginModal"
++          >
++            Вход
++          </span>
++          <span
++            class="login-btn"
++            @click="openRegisterModal"
++          >
++            Регистрация
++          </span>
++        </li>
+       </ul>
+     </nav>
+-    <LoginModal v-if="isLoginModalVisible" @close="closeLoginModal" @show-register="openRegisterModal" />
+-    <RegisterModal v-if="isRegisterModalVisible" @close="closeRegisterModal" @show-login="openLoginModal" />
++    <LoginModal
++      v-if="isLoginModalVisible"
++      @close="closeLoginModal"
++      @show-register="openRegisterModal"
++    />
++    <RegisterModal
++      v-if="isRegisterModalVisible"
++      @close="closeRegisterModal"
++      @show-login="openLoginModal"
++    />
+   </div>
+ </template>
+ 
+ <script>
+ import axios from 'axios';
+ import CategoryTreeView from '@/views/CategoryTreeView.vue';
+-import LoginModal from '@/components/LoginModal.vue';
+-import RegisterModal from '@/components/RegisterModal.vue'; // Импортируйте компонент модального окна регистрации
++import LoginModal from '@/components/auth/LoginModal.vue';
++import RegisterModal from '@/components/auth/RegisterModal.vue';
+ 
+ export default {
+   name: "UnderHeader",
+@@ -31,9 +53,12 @@
+       categories: [],
+       loading: true,
+       error: null,
+-      isLoginModalVisible: false, // Состояние видимости модального окна входа
+-      isRegisterModalVisible: false, // Состояние видимости модального окна регистрации
++      isLoginModalVisible: false,
++      isRegisterModalVisible: false,
+     };
++  },
++  mounted() {
++    this.fetchCategories();
+   },
+   methods: {
+     async fetchCategories() {
+@@ -62,9 +87,6 @@
+       this.isRegisterModalVisible = false;
+     }
+   },
+-  mounted() {
+-    this.fetchCategories();
+-  }
+ };
+ </script>
+ 
+Index: vue-freelance/src/components/ProductCard.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/components/ProductCard.vue b/vue-freelance/src/components/card/ProductCard.vue
+rename from vue-freelance/src/components/ProductCard.vue
+rename to vue-freelance/src/components/card/ProductCard.vue
+--- a/vue-freelance/src/components/ProductCard.vue	
++++ b/vue-freelance/src/components/card/ProductCard.vue	
+@@ -1,18 +1,32 @@
+ <template>
+-  <div class="product-card" @click="goToProductDetail">
+-    <img :src="product.image" :alt="product.name" class="product-image" />
+-    <h3 class="product-name">{{ product.name }}</h3>
+-    <p class="product-price">{{ product.price }} Тг</p>
++  <div
++    class="product-card"
++    @click="goToProductDetail"
++  >
++    <img
++      class="product-image"
++      :alt="product.name"
++      :src="product.image"
++    >
++    <h3 class="product-name">
++      {{ product.name }}
++    </h3>
++    <p class="product-price">
++      {{ product.price }} Тг
++    </p>
+     <div class="product-actions">
+-      <button class="add-to-cart" @click.stop="addToCart(product)">
++      <button
++        class="add-to-cart"
++        @click.stop="addToCart(product)"
++      >
+         В корзину
+       </button>
+       <img
+         :src="isFavorite ? require('@/assets/images/dark_heart.svg') : require('@/assets/images/heart.svg')"
+         alt="Favorites"
++        class="favorite-icon"
+         @click.stop="toggleFavorites"
+-        class="favorite-icon"
+-      />
++      >
+     </div>
+   </div>
+ </template>
+@@ -36,13 +50,16 @@
+       this.$router.push({
+         name: 'ProductDetail',
+         params: {
+-          id: this.product.id,
++          id: String(this.product.id),  // Convert id to string
+           productName: this.product.name
+         }
+       });
+     },
+     addToCart(product) {
+-      console.log('Добавлено в корзину:', product);
++      let cart = JSON.parse(localStorage.getItem('cart')) || [];
++      cart.push(product);
++      localStorage.setItem('cart', JSON.stringify(cart));
++      alert('Product added to cart!');
+     },
+     toggleFavorites() {
+       this.isFavorite = !this.isFavorite;
+Index: vue-freelance/src/components/ImageSlider.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div class=\"image-slider-container\">\r\n    <div class=\"image-slider\">\r\n      <!-- Image slides -->\r\n      <div\r\n        v-for=\"(image, index) in images\"\r\n        :key=\"image.id\"\r\n        class=\"slide\"\r\n        :class=\"{ active: index === currentIndex }\"\r\n        @click=\"goToImageInfo(index)\"\r\n      >\r\n        <img :src=\"image.image\" :alt=\"image.title\" />\r\n      </div>\r\n\r\n      <!-- Navigation buttons -->\r\n      <button class=\"prev\" @click=\"prevSlide\" aria-label=\"Previous slide\">❮</button>\r\n      <button class=\"next\" @click=\"nextSlide\" aria-label=\"Next slide\">❯</button>\r\n\r\n      <!-- Navigation bullets -->\r\n      <div class=\"bullets\">\r\n        <span\r\n          v-for=\"(image, index) in images\"\r\n          :key=\"image.id\"\r\n          class=\"bullet\"\r\n          :class=\"{ active: index === currentIndex }\"\r\n          @click=\"goToSlide(index)\"\r\n        ></span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport axios from 'axios';\r\n\r\nexport default {\r\n  data() {\r\n    return {\r\n      currentIndex: 0,\r\n      images: [],\r\n      autoplayInterval: null\r\n    };\r\n  },\r\n  mounted() {\r\n    this.fetchImages();\r\n    this.startAutoplay();\r\n  },\r\n  beforeUnmount() {\r\n    this.stopAutoplay();\r\n  },\r\n  methods: {\r\n    async fetchImages() {\r\n      try {\r\n        const response = await axios.get('api/images/');\r\n        this.images = response.data;\r\n      } catch (error) {\r\n        console.error('Error fetching images:', error.response ? error.response.data : error.message);\r\n        // Display an error message to the user\r\n        this.$emit('fetch-error', 'Failed to load images. Please try again later.');\r\n      }\r\n    },\r\n    nextSlide() {\r\n      this.currentIndex = (this.currentIndex + 1) % this.images.length;\r\n    },\r\n    prevSlide() {\r\n      this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;\r\n    },\r\n    goToSlide(index) {\r\n      this.currentIndex = index;\r\n    },\r\n    startAutoplay() {\r\n      this.autoplayInterval = setInterval(this.nextSlide, 3000);\r\n    },\r\n    stopAutoplay() {\r\n      clearInterval(this.autoplayInterval);\r\n    },\r\n    goToImageInfo(index) {\r\n      const image = this.images[index];\r\n      this.$router.push({ name: 'ImageInfo', params: { id: image.id } });\r\n    }\r\n  }\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.image-slider-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  padding: 10px;\r\n}\r\n\r\n.image-slider {\r\n  height: 520px;\r\n  position: relative;\r\n  width: 100%;\r\n  max-width: 1400px;\r\n  overflow: hidden;\r\n  border-radius: 8px;\r\n}\r\n\r\n.slide {\r\n  display: none;\r\n  text-align: center;\r\n  cursor: pointer;\r\n}\r\n\r\n.slide.active {\r\n  display: block;\r\n}\r\n\r\n.slide img {\r\n  width: 100%;\r\n  height: auto;\r\n  border-radius: 8px;\r\n}\r\n\r\n.prev, .next {\r\n  width: 55px;\r\n  height: 55px;\r\n  position: absolute;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  background-color: rgba(0, 0, 0, 0.1);\r\n  color: white;\r\n  border: none;\r\n  padding: 10px;\r\n  cursor: pointer;\r\n  border-radius: 50%;\r\n}\r\n\r\n.prev {\r\n  left: 20px;\r\n}\r\n\r\n.next {\r\n  right: 20px;\r\n}\r\n\r\n.bullets {\r\n  position: absolute;\r\n  bottom: 10px;\r\n  left: 50%;\r\n  transform: translateX(-50%);\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.bullet {\r\n  width: 10px;\r\n  height: 10px;\r\n  margin: 0 5px;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  border-radius: 50%;\r\n  cursor: pointer;\r\n}\r\n\r\n.bullet.active {\r\n  background-color: white;\r\n}\r\n</style>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/components/ImageSlider.vue b/vue-freelance/src/components/ImageSlider.vue
+--- a/vue-freelance/src/components/ImageSlider.vue	
++++ b/vue-freelance/src/components/ImageSlider.vue	
+@@ -9,22 +9,37 @@
+         :class="{ active: index === currentIndex }"
+         @click="goToImageInfo(index)"
+       >
+-        <img :src="image.image" :alt="image.title" />
++        <img 
++          :alt="image.title" 
++          :src="image.image" 
++        >
+       </div>
+ 
+       <!-- Navigation buttons -->
+-      <button class="prev" @click="prevSlide" aria-label="Previous slide">❮</button>
+-      <button class="next" @click="nextSlide" aria-label="Next slide">❯</button>
++      <button 
++        class="prev" 
++        aria-label="Previous slide"
++        @click="prevSlide" 
++      >
++        ❮
++      </button>
++      <button 
++        class="next" 
++        aria-label="Next slide"
++        @click="nextSlide" 
++      >
++        ❯
++      </button>
+ 
+       <!-- Navigation bullets -->
+       <div class="bullets">
+         <span
+           v-for="(image, index) in images"
+           :key="image.id"
+-          class="bullet"
+           :class="{ active: index === currentIndex }"
++          class="bullet"
+           @click="goToSlide(index)"
+-        ></span>
++        />
+       </div>
+     </div>
+   </div>
+Index: vue-freelance/src/views/ProfileSettingsView.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/views/ProfileSettingsView.vue b/vue-freelance/src/views/ProfileSettingsView.vue
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/views/ProfileSettingsView.vue	
+@@ -0,0 +1,185 @@
++<template>
++  <MainView>
++    <div v-if="auth_user" class="setting-container">
++      <h3>Account</h3>
++      <hr>
++      <div class="account-container">
++        <div class="account">
++          <div class="label">
++            <label for="name">Name:</label>
++            <label for="email">Email:</label>
++            <label for="profile_pic">Profile Picture:</label>
++            <label for="bio">Bio:</label>
++          </div>
++          <div class="input">
++            <div>
++              <small v-if="v_error.name" class="color-danger d-block">{{ v_error.name }}</small>
++              <input id="name" type="text" v-model="auth_user.name"
++                     :class="{ 'v-input-error': v_error.name }" @keyup="$store.state.v_error.name = null">
++            </div>
++            <div>
++              <input id="email" type="email" disabled v-model="auth_user.email">
++            </div>
++            <div class="pp">
++              <input id="profile_pic" type="file" @change="selectFile($event)">
++              <img :src="$url + auth_user.image" alt="" id="pp_image">
++            </div>
++            <div>
++              <textarea id="bio" cols="20" rows="3" v-model="auth_user.bio"></textarea>
++            </div>
++          </div>
++        </div>
++        <button class="btn btn-primary mt-1" @click="profileInfoChange">Save</button>
++      </div>
++      <hr>
++      <h3>Change Password</h3>
++      <div class="account-container">
++        <div class="account">
++          <div class="label">
++            <span>Old Password:</span>
++            <span>New Password:</span>
++            <span>Confirm Password:</span>
++          </div>
++          <div class="input">
++            <div>
++              <input type="password" v-model="oldPassword"
++                     :class="{ 'v-input-error': validation_error.old_password }">
++              <small v-if="validation_error.old_password" class="color-danger d-block">{{
++                validation_error.old_password[0] }}</small>
++            </div>
++            <div>
++              <input type="password" v-model="newPassword"
++                     :class="{ 'v-input-error': validation_error.new_password }">
++              <small v-if="validation_error.new_password" class="color-danger d-block">{{
++                validation_error.new_password[0] }}</small>
++            </div>
++            <div>
++              <input type="password" v-model="confirmPassword"
++                     :class="{ 'v-input-error': validation_error.confirm_password }">
++              <small v-if="validation_error.confirm_password" class="color-danger d-block">{{
++                validation_error.confirm_password[0] }}</small>
++            </div>
++          </div>
++        </div>
++        <button class="btn btn-primary mt-1" @click="changePassword">Change</button>
++      </div>
++      <hr>
++      <h3>Delete your account?</h3>
++      <div class="ms-1">
++        <div class="alert-warning">
++          <span>If you delete your account, your account will be deleted permanently and you will not be able to recover your account anymore.</span>
++        </div>
++        <button class="btn btn-danger" @click="deleteAccount">Delete Account</button>
++      </div>
++    </div>
++  </MainView>
++</template>
++
++<script>
++import { mapActions, mapGetters } from 'vuex';
++import MainView from './MainView.vue';
++import Swal from 'sweetalert2';
++
++export default {
++    components: {
++        MainView,
++    },
++    data() {
++        return {
++            selectedFile: null,
++            oldPassword: '',
++            newPassword: '',
++            confirmPassword: '',
++            validation_error: [],   // for password only
++        };
++    },
++    computed: {
++        ...mapGetters(['auth_user', 'v_error'])
++    },
++    methods: {
++        ...mapActions(['updateAuthUser']),
++        selectFile(e) {
++            this.selectedFile = e.target.files[0];
++            const previewImg = document.querySelector('#pp_image');
++            if (this.selectedFile) {
++                const reader = new FileReader();
++                reader.readAsDataURL(this.selectedFile);
++                reader.onload = e => {
++                    previewImg.src = e.target.result;
++                };
++            }
++        },
++        profileInfoChange() {
++            let data = {
++                name: this.auth_user.name,
++                email: this.auth_user.email,
++                bio: this.auth_user.bio,
++                image: this.selectedFile
++            };
++            this.updateAuthUser(data);
++        },
++        changePassword() {
++            this.$axios.post('change-password/', {
++                'old_password': this.oldPassword,
++                'new_password': this.newPassword,
++                'confirm_password': this.confirmPassword,
++            }).then(response => {
++                if (response.data.status == 200) {
++                    this.oldPassword = '';
++                    this.newPassword = '';
++                    this.confirmPassword = '';
++                    this.validation_error = [];
++
++                    Swal.fire({
++                        icon: "success",
++                        title: response.data.data,
++                        toast: true,
++                        position: "top-end",
++                        showConfirmButton: false,
++                        timer: 3000,
++                    });
++                }
++                if (response.data.status == 400) {
++                    this.validation_error = response.data.data;
++                }
++            });
++        },
++        async deleteAccount() {
++            const { value: password } = await Swal.fire({
++                title: "Enter your password",
++                input: "password",
++                inputLabel: "Password",
++                inputPlaceholder: "Enter your password",
++                customClass: {
++                    input: 'text-center'
++                },
++                inputAttributes: {
++                    maxlength: "10",
++                    autocapitalize: "off",
++                    autocorrect: "off"
++                }
++            });
++            if (password) {
++                this.$axios.post('delete-account/', { 'password': password }).then(response => {
++                    if (response.data.status == 200) {
++                        localStorage.removeItem('assetToken');
++                        localStorage.removeItem('refreshToken');
++                        this.$router.push({ 'name': 'home' }).then(() => window.location.reload());
++                    }
++                    if (response.data.status == 400) {
++                        Swal.fire({
++                            title: "Oops...",
++                            text: response.data.data,
++                            icon: "error"
++                        });
++                    }
++                });
++            }
++        }
++    },
++};
++</script>
++
++<style scoped>
++/* Add your styles here */
++</style>
+Index: vue-freelance/src/components/card/Card.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/components/card/Card.vue b/vue-freelance/src/components/card/Card.vue
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/components/card/Card.vue	
+@@ -0,0 +1,75 @@
++<template>
++  <div class="card" @click="navigateTo">
++    <img
++      class="card-image"
++      :src="item.image"
++      :alt="`${item.name} Image`"
++    >
++    <h3 class="card-name">
++      {{ item.name }}
++    </h3>
++  </div>
++</template>
++<script>
++export default {
++  name: "Card",
++  props: {
++    item: {
++      type: Object,
++      required: true,
++    },
++    type: {
++      type: String,
++      required: true,
++    }
++  },
++  methods: {
++    navigateTo() {
++      const { slug, id } = this.item;
++      let path = '';
++
++      switch (this.type) {
++        case 'category':
++          path = `/catalog/${slug}/c${id}`;
++          break;
++        case 'subcategory':
++          path = `/catalog/${slug}/c${id}`;
++          break;
++        case 'subsubcategory':
++          path = `/catalog/${slug}/c${id}`;
++          break;
++        default:
++          console.warn('Unknown type');
++          return;
++      }
++
++      this.$router.push(path);
++    }
++  }
++};
++</script>
++<style scoped>
++.card {
++  border: 1px solid #ddd;
++  padding: 20px;
++  background-color: #fff;
++  border-radius: 8px;
++  text-align: center;
++  cursor: pointer;
++  transition: transform 0.3s ease;
++}
++.card:hover {
++  transform: scale(1.05);
++}
++.card-image {
++  max-width: 100%;
++  height: auto;
++  margin-bottom: 15px;
++}
++.card-name {
++  font-size: 18px;
++  font-weight: bold;
++  color: #007bff;
++  margin-bottom: 10px;
++}
++</style>
+Index: vue-freelance/src/views/ProfileView.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/views/ProfileView.vue b/vue-freelance/src/views/ProfileView.vue
+new file mode 100644
+--- /dev/null	
++++ b/vue-freelance/src/views/ProfileView.vue	
+@@ -0,0 +1,46 @@
++<template>
++  <MainView>
++    <div class="profile-header">
++      <div class="cover-img">
++        <img src="@/assets/image/cover_photo.jpg" alt="">
++      </div>
++      <div class="profile-img">
++        <img :src="$url + user_info.image" alt="">
++      </div>
++      <div class="user-info">
++        <h3>{{ user_info.name }}</h3>
++        <p>{{ user_info.bio }} </p>
++        <router-link v-if="auth_user && auth_user.id == user_info.id"
++                     :to="{ name: 'profile-setting', params: { id: auth_user.id } }" class="setting-icon">
++          <img src="@/assets/image/setting.svg" alt="">
++        </router-link>
++      </div>
++    </div>
++    <div class="profile-body">
++      <div v-if="!user_info" class="no-results">
++        <img src="@/assets/image/no-results.png" alt="">
++        <h3>No Results Found</h3>
++        <p>Check your search criteria or try different keywords</p>
++      </div>
++    </div>
++  </MainView>
++</template>
++
++<script>
++import { mapGetters } from 'vuex';
++import MainView from './MainView.vue';
++
++export default {
++    components: {
++        MainView,
++    },
++    computed: {
++        ...mapGetters(['auth_user', 'user_info']),
++    },
++    mounted() {
++        // Можно добавить любые действия по загрузке данных о пользователе здесь
++    },
++}
++</script>
++
++<style lang="scss" scoped></style>
+Index: vue-freelance/src/views/ImageInfo.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div v-if=\"loading\">Loading...</div>\r\n  <div v-else-if=\"error\">{{ error }}</div>\r\n  <div class=\"image-info\" v-else-if=\"image\">\r\n    <h1>{{ image.title }}</h1>\r\n    <img\r\n      :src=\"image.image\"\r\n      :alt=\"image.title\"\r\n    />\r\n    <p>{{ image.title }}</p>\r\n  </div>\r\n  <div v-else>\r\n    <p>Image not found</p>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport axios from \"axios\";\r\n\r\nexport default {\r\n  props: ['id'],\r\n  data() {\r\n    return {\r\n      image: null,\r\n      loading: false,\r\n      error: null\r\n    };\r\n  },\r\n  async created() {\r\n    await this.loadImage();\r\n  },\r\n  methods: {\r\n    async loadImage() {\r\n      this.loading = true;\r\n      this.error = null;\r\n\r\n      try {\r\n        const response = await axios.get(`/api/images/${this.id}/`);\r\n        console.log('Image data:', response.data); // Debugging data\r\n        this.image = response.data;\r\n        console.log('Image img:', this.image.image); // Debugging img path\r\n      } catch (error) {\r\n        this.error = 'Error loading image';\r\n        console.error('Error loading image:', error);\r\n      } finally {\r\n        this.loading = false;\r\n      }\r\n    }\r\n  }\r\n};\r\n</script>\r\n\r\n\r\n<style scoped>\r\n.image-info {\r\n  text-align: center;\r\n  padding: 20px;\r\n}\r\n\r\n.image-info img {\r\n  max-width: 100%;\r\n  height: auto;\r\n  border-radius: 8px;\r\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\r\n}\r\n\r\n.image-info p {\r\n  font-size: 1.2rem;\r\n  color: #555;\r\n}\r\n</style>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/views/ImageInfo.vue b/vue-freelance/src/views/ImageInfo.vue
+--- a/vue-freelance/src/views/ImageInfo.vue	
++++ b/vue-freelance/src/views/ImageInfo.vue	
+@@ -1,12 +1,19 @@
+ <template>
+-  <div v-if="loading">Loading...</div>
+-  <div v-else-if="error">{{ error }}</div>
+-  <div class="image-info" v-else-if="image">
++  <div v-if="loading">
++    Loading...
++  </div>
++  <div v-else-if="error">
++    {{ error }}
++  </div>
++  <div
++    v-else-if="image"
++    class="image-info"
++  >
+     <h1>{{ image.title }}</h1>
+     <img
+       :src="image.image"
+       :alt="image.title"
+-    />
++    >
+     <p>{{ image.title }}</p>
+   </div>
+   <div v-else>
+@@ -18,7 +25,12 @@
+ import axios from "axios";
+ 
+ export default {
+-  props: ['id'],
++  props: {
++    id: {
++      type: String,
++      required: true
++    }
++  },
+   data() {
+     return {
+       image: null,
+@@ -50,7 +62,6 @@
+ };
+ </script>
+ 
+-
+ <style scoped>
+ .image-info {
+   text-align: center;
+Index: vue-freelance/src/router/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import Vue from 'vue';\r\nimport VueRouter from 'vue-router';\r\nimport Home from '@/views/Home.vue';\r\nimport Cart from '@/views/CartItems.vue';\r\nimport Checkout from '@/views/CheckoutForm.vue';\r\nimport Favorites from '@/views/Favorites.vue';\r\nimport NotFound from '@/views/NotFound.vue';\r\nimport ProductList from '@/views/ProductList.vue';\r\nimport ImageInfo from '@/views/ImageInfo.vue';\r\nimport ProductDetail from '@/components/ProductDetail.vue';\r\nVue.use(VueRouter);\r\n\r\nconst routes = [\r\n  { path: '/', name: 'Home', component: Home },\r\n  { path: \"/products\", name: 'ProductList', component: ProductList, props: true },\r\n  { path: '/catalog/:productName/p:id', name: 'ProductDetail', component: ProductDetail, props: true },\r\n  { path: '/cart', name: 'Cart', component: Cart },\r\n  { path: '/checkout', name: 'Checkout', component: Checkout },\r\n  { path: '/favorites', name: 'Favorites', component: Favorites },\r\n  // { path: '/signin', name: 'SignIn', component: SignIn },\r\n  // { path: '/signup', name: 'SignUp', component: SignUp },\r\n  { path: '/image/:id', name: 'ImageInfo', component: ImageInfo, props: true },\r\n  { path: '*', name: 'NotFound', component: NotFound },\r\n];\r\n\r\nconst router = new VueRouter({\r\n  mode: 'history',\r\n  base: process.env.BASE_URL,\r\n  routes\r\n});\r\n\r\nexport default router;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vue-freelance/src/router/index.js b/vue-freelance/src/router/index.js
+--- a/vue-freelance/src/router/index.js	
++++ b/vue-freelance/src/router/index.js	
+@@ -5,20 +5,34 @@
+ import Checkout from '@/views/CheckoutForm.vue';
+ import Favorites from '@/views/Favorites.vue';
+ import NotFound from '@/views/NotFound.vue';
+-import ProductList from '@/views/ProductList.vue';
++import SubcategoryProducts from '@/views/ProductList.vue';
+ import ImageInfo from '@/views/ImageInfo.vue';
+ import ProductDetail from '@/components/ProductDetail.vue';
++import CategoryView from '@/views/CategoryView.vue';
++import SubcategoryView from '@/views/SubcategoryView.vue';
++import SubsubcategoryView from '@/views/SubsubcategoryView.vue';
++import store from "../store";
++import ProductView from "@/views/ProductView.vue";
+ Vue.use(VueRouter);
+ 
+ const routes = [
+-  { path: '/', name: 'Home', component: Home },
+-  { path: "/products", name: 'ProductList', component: ProductList, props: true },
++  { path: '/', name: 'Home', component: Home,
++    beforeEnter: (to, from, next) => {
++    if (store.getters.isAuthenticated) {
++      next();
++    } else {
++      next({ name: 'login' });
++    }
++  }},
++  { path: '/catalog', name: 'CategoryView', component: CategoryView},
++  { path: '/catalog/:slug/p:parentId', name: 'SubcategoryView', component: SubcategoryView, props: true},
++  { path: '/catalog/:slug/c:subcategoryId', name: 'SubsubcategoryView', component: SubsubcategoryView, props: true},
++  { path: '/catalog/:categorySlug/:categoryId', name: 'SubcategoryProducts', component: SubcategoryProducts, props: true },
+   { path: '/catalog/:productName/p:id', name: 'ProductDetail', component: ProductDetail, props: true },
++  { path: '/products', name: 'ProductView', component: ProductView, meta: { requiresAuth: true }},
+   { path: '/cart', name: 'Cart', component: Cart },
+   { path: '/checkout', name: 'Checkout', component: Checkout },
+   { path: '/favorites', name: 'Favorites', component: Favorites },
+-  // { path: '/signin', name: 'SignIn', component: SignIn },
+-  // { path: '/signup', name: 'SignUp', component: SignUp },
+   { path: '/image/:id', name: 'ImageInfo', component: ImageInfo, props: true },
+   { path: '*', name: 'NotFound', component: NotFound },
+ ];
+@@ -29,4 +43,20 @@
+   routes
+ });
+ 
++// Навигационная охрана
++router.beforeEach((to, from, next) => {
++  const isAuthenticated = store.getters.isAuthenticated;
++
++  if (to.matched.some(record => record.meta.requiresAuth)) {
++    if (!isAuthenticated) {
++      // Открываем модальное окно для входа
++      store.commit('SET_LOGIN_MODAL', true); // Открываем модальное окно
++      next(false); // Останавливаем переход на защищённую страницу
++    } else {
++      next(); // Если авторизован, продолжаем
++    }
++  } else {
++    next(); // Для маршрутов, не требующих авторизации
++  }
++});
+ export default router;

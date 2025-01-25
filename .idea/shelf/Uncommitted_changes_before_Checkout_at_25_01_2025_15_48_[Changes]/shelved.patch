@@ -1,0 +1,661 @@
+Index: vue-freelance/src/components/RegisterModal.vue
+===================================================================
+diff --git a/vue-freelance/src/components/RegisterModal.vue b/vue-freelance/src/components/auth/RegisterModal.vue
+rename from vue-freelance/src/components/RegisterModal.vue
+rename to vue-freelance/src/components/auth/RegisterModal.vue
+--- a/vue-freelance/src/components/RegisterModal.vue	
++++ b/vue-freelance/src/components/auth/RegisterModal.vue	
+@@ -1,14 +1,19 @@
+ <template>
+   <div class="modal-overlay">
+     <div class="modal-content">
+-      <span class="close-btn" @click="close">&times;</span>
++      <span
++        class="close-btn"
++        @click="close"
++      >
++        &times;
++      </span>
+       <RegisterForm @show-login="showLoginForm" />
+     </div>
+   </div>
+ </template>
+ 
+ <script>
+-import RegisterForm from '@/components/RegisterForm.vue';
++import RegisterForm from '@/components/auth/RegisterForm.vue';
+ 
+ export default {
+   name: "RegisterModal",
+Index: vue-freelance/src/components/ProductDetail.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div class=\"product-detail-page\">\r\n    <Header />\r\n    <!-- Check if product exists before rendering -->\r\n    <div v-if=\"product\" class=\"product-detail-container\">\r\n      <img :src=\"product.image\" :alt=\"product.name\" class=\"product-image\" />\r\n      <div class=\"product-info\">\r\n        <h3 class=\"product-name\">\r\n          {{ product.name }}\r\n        </h3>\r\n        <p class=\"product-price\">{{ product.price }} Тг</p>\r\n        <p class=\"product-description\">{{ product.description }}</p>\r\n        <button class=\"add-to-cart\" @click=\"addToCart(product)\">\r\n          В корзину\r\n        </button>\r\n      </div>\r\n    </div>\r\n    <!-- Display a loading message or spinner while the product is being fetched -->\r\n    <div v-else>Loading product details...</div>\r\n    <Footer />\r\n\r\n    <!-- Login Modal -->\r\n    <LoginModal v-if=\"showLoginModal\" @close=\"closeLoginModal\" />\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport Header from '@/components/Header.vue';\r\nimport Footer from '@/components/Footer.vue';\r\nimport LoginModal from '@/components/LoginModal.vue';  // Импортируем компонент LoginModal\r\nimport axios from 'axios';\r\n\r\nexport default {\r\n  components: { Header, Footer, LoginModal },\r\n  props: {\r\n    productName: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n    id: {\r\n      type: String,\r\n      required: true,\r\n    },\r\n  },\r\n  data() {\r\n    return {\r\n      product: null, // Loaded product data\r\n      showLoginModal: false, // Управление видимостью модального окна входа\r\n    };\r\n  },\r\n  created() {\r\n    this.fetchProduct();\r\n  },\r\n  methods: {\r\n    generateProductSlug(name) {\r\n      return name\r\n        .toLowerCase()\r\n        .replace(/ /g, '-')\r\n        .replace(/[^\\w-]+/g, '');\r\n    },\r\n    async fetchProduct() {\r\n      try {\r\n        const token = localStorage.getItem('access_token');\r\n        if (!token) {\r\n          this.showLoginModal = true;  // Показываем модальное окно, если нет токена\r\n          return;\r\n        }\r\n\r\n        const productId = String(this.id);\r\n\r\n        const response = await axios.get(`/api/products/${productId}/`, {\r\n          headers: {\r\n            Authorization: `JWT ${token}`\r\n          }\r\n        });\r\n        this.product = response.data;\r\n      } catch (error) {\r\n        if (error.response && error.response.status === 401) {\r\n          this.showLoginModal = true;  // Показываем модальное окно, если ошибка 401\r\n        } else {\r\n          console.error('Ошибка при загрузке продукта:', error);\r\n        }\r\n      }\r\n    },\r\n    closeLoginModal() {\r\n      this.showLoginModal = false;\r\n    },\r\n  },\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.product-detail-page {\r\n  background-color: #f8f9fa;\r\n  max-width: 1200px;\r\n  margin: 0 auto;\r\n  padding: 20px;\r\n}\r\n\r\n.product-detail-container {\r\n  display: flex;\r\n  gap: 20px;\r\n}\r\n\r\n.product-image {\r\n  width: 400px;\r\n  height: 400px;\r\n  border-radius: 8px;\r\n}\r\n\r\n.product-info {\r\n  flex-grow: 1;\r\n}\r\n\r\n.product-name {\r\n  font-size: 2rem;\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.product-price {\r\n  font-size: 1.5rem;\r\n  color: #28a745;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.product-description {\r\n  font-size: 1.1rem;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.add-to-cart {\r\n  background-color: #007bff;\r\n  color: #fff;\r\n  padding: 10px 20px;\r\n  border: none;\r\n  border-radius: 4px;\r\n  cursor: pointer;\r\n}\r\n\r\n.add-to-cart:hover {\r\n  background-color: #0056b3;\r\n}\r\n</style>\r\n
+===================================================================
+diff --git a/vue-freelance/src/components/ProductDetail.vue b/vue-freelance/src/components/ProductDetail.vue
+--- a/vue-freelance/src/components/ProductDetail.vue	
++++ b/vue-freelance/src/components/ProductDetail.vue	
+@@ -2,32 +2,51 @@
+   <div class="product-detail-page">
+     <Header />
+     <!-- Check if product exists before rendering -->
+-    <div v-if="product" class="product-detail-container">
+-      <img :src="product.image" :alt="product.name" class="product-image" />
++    <div 
++      v-if="product" 
++      class="product-detail-container"
++    >
++      <img 
++        class="product-image" 
++        :alt="product.name" 
++        :src="product.image" 
++      >
+       <div class="product-info">
+         <h3 class="product-name">
+           {{ product.name }}
+         </h3>
+-        <p class="product-price">{{ product.price }} Тг</p>
+-        <p class="product-description">{{ product.description }}</p>
+-        <button class="add-to-cart" @click="addToCart(product)">
++        <p class="product-price">
++          {{ product.price }} Тг
++        </p>
++        <p class="product-description">
++          {{ product.description }}
++        </p>
++        <button 
++          class="add-to-cart" 
++          @click="addToCart(product)"
++        >
+           В корзину
+         </button>
+       </div>
+     </div>
+     <!-- Display a loading message or spinner while the product is being fetched -->
+-    <div v-else>Loading product details...</div>
++    <div v-else>
++      Loading product details...
++    </div>
+     <Footer />
+ 
+     <!-- Login Modal -->
+-    <LoginModal v-if="showLoginModal" @close="closeLoginModal" />
++    <LoginModal
++      v-if="showLoginModal" 
++      @close="closeLoginModal" 
++    />
+   </div>
+ </template>
+ 
+ <script>
+ import Header from '@/components/Header.vue';
+ import Footer from '@/components/Footer.vue';
+-import LoginModal from '@/components/LoginModal.vue';  // Импортируем компонент LoginModal
++import LoginModal from '@/components/auth/LoginModal.vue';  // Импортируем компонент LoginModal
+ import axios from 'axios';
+ 
+ export default {
+@@ -38,7 +57,7 @@
+       required: true,
+     },
+     id: {
+-      type: String,
++      type: [String, Number],
+       required: true,
+     },
+   },
+@@ -85,6 +104,14 @@
+     closeLoginModal() {
+       this.showLoginModal = false;
+     },
++    addToCart(product) {
++      // Example logic for adding a product to the cart
++      // You may want to use a state management library or API to handle the cart
++      const cart = JSON.parse(localStorage.getItem('cart')) || [];
++      cart.push(product);
++      localStorage.setItem('cart', JSON.stringify(cart));
++      alert('Product added to cart!');
++    },
+   },
+ };
+ </script>
+Index: vue-freelance/src/views/CategoryTreeView.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div>\r\n    <nav class=\"category-tree-container\">\r\n      <button @click=\"toggleMenu\" class=\"category-tree-button\">\r\n        <i class=\"fas fa-bars\"></i> Каталог товаров\r\n      </button>\r\n      <div v-if=\"isMenuOpen\" class=\"category-tree-menu\">\r\n        <CategoryTree :categories=\"categories\"/>\r\n        <hr/>\r\n        <p>Все категории</p>\r\n      </div>\r\n    </nav>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport axios from 'axios';\r\nimport CategoryTree from '@/components/CategoryTree.vue';\r\n\r\nexport default {\r\n  name: 'CategoryTreeView',\r\n  components: {\r\n    CategoryTree,\r\n  },\r\n  data() {\r\n    return {\r\n      categories: [],\r\n      isMenuOpen: false,\r\n    };\r\n  },\r\n  created() {\r\n    this.fetchCategories();\r\n  },\r\n  methods: {\r\n    async fetchCategories() {\r\n      try {\r\n        const response = await axios.get('/api/categories/');\r\n        this.categories = response.data;\r\n      } catch (error) {\r\n        console.error('Ошибка при получении категорий:', error);\r\n      }\r\n    },\r\n    toggleMenu() {\r\n      this.isMenuOpen = !this.isMenuOpen;\r\n    },\r\n  },\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.category-tree-container {\r\n  position: relative;\r\n}\r\n\r\n.category-tree-button {\r\n  background-color: #007bff;\r\n  color: white;\r\n  padding: 10px 20px;\r\n  border: none;\r\n  cursor: pointer;\r\n  font-size: 16px;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.category-tree-button i {\r\n  margin-right: 10px;\r\n  font-size: 18px;\r\n}\r\n\r\n.category-tree-button:hover {\r\n  background-color: #0056b3;\r\n}\r\n\r\n.category-tree-menu {\r\n  position: absolute;\r\n  top: 100%;\r\n  left: 0;\r\n  background-color: white;\r\n  border: 1px solid #ddd;\r\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);\r\n  z-index: 1000;\r\n  padding: 10px;\r\n  min-width: 300px;\r\n  margin-top: 10px;\r\n}\r\n</style>\r\n
+===================================================================
+diff --git a/vue-freelance/src/views/CategoryTreeView.vue b/vue-freelance/src/views/CategoryTreeView.vue
+--- a/vue-freelance/src/views/CategoryTreeView.vue	
++++ b/vue-freelance/src/views/CategoryTreeView.vue	
+@@ -1,13 +1,26 @@
+ <template>
+   <div>
+     <nav class="category-tree-container">
+-      <button @click="toggleMenu" class="category-tree-button">
+-        <i class="fas fa-bars"></i> Каталог товаров
++      <button
++        class="category-tree-button"
++        @click="toggleMenu"
++      >
++        Каталог товаров
+       </button>
+-      <div v-if="isMenuOpen" class="category-tree-menu">
+-        <CategoryTree :categories="categories"/>
+-        <hr/>
+-        <p>Все категории</p>
++      <div
++        v-if="isMenuOpen"
++        class="category-tree-menu"
++      >
++        <CategoryTree
++          :categories="categories"
++        />
++        <hr>
++        <router-link
++          class="all-categories-link"
++          to="/catalog"
++        >
++          ВСЕ КАТЕГОРИЙ
++        </router-link>
+       </div>
+     </nav>
+   </div>
+@@ -80,8 +93,10 @@
+   border: 1px solid #ddd;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+   z-index: 1000;
+-  padding: 10px;
+-  min-width: 300px;
++  min-width: 330px;
+   margin-top: 10px;
++  padding-bottom: 8px;
+ }
++
++
+ </style>
+Index: vue-freelance/src/components/CategoryTree.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <ul class=\"category-tree\">\r\n    <li\r\n      v-for=\"category in visibleCategories\"\r\n      :key=\"category.id\"\r\n      class=\"category-item\"\r\n      @mouseover=\"openDropdown(category)\"\r\n      @mouseleave=\"closeDropdown(category)\"\r\n    >\r\n      <div class=\"category-title\">\r\n        <i :class=\"getIcon(category.name)\" class=\"category-icon\"></i>\r\n        {{ category.name }}\r\n        <span v-if=\"hasChildren(category)\" class=\"arrow-icon\">\r\n          &#x25B6; <!-- Rightward arrow -->\r\n        </span>\r\n      </div>\r\n      <div v-if=\"isOpen(category)\" class=\"category-dropdown\">\r\n        <div class=\"subcategories-container\">\r\n          <div class=\"subcategory-column\" v-for=\"subcategory in category.children\" :key=\"subcategory.id\">\r\n            <h4>{{ subcategory.name }}</h4>\r\n            <ul>\r\n              <li v-for=\"child in subcategory.children\" :key=\"child.id\">\r\n                {{ child.name }}\r\n              </li>\r\n            </ul>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </li>\r\n  </ul>\r\n</template>\r\n\r\n<script>\r\nexport default {\r\n  name: \"CategoryTree\",\r\n  props: {\r\n    categories: {\r\n      type: Array,\r\n      required: true,\r\n    },\r\n    parentId: {\r\n      type: Number,\r\n      default: null,\r\n    },\r\n  },\r\n  data() {\r\n    return {\r\n      openCategories: {},\r\n    };\r\n  },\r\n  computed: {\r\n    visibleCategories() {\r\n      return this.categories.filter(category => category.parent === this.parentId);\r\n    },\r\n  },\r\n  methods: {\r\n    openDropdown(category) {\r\n      this.$set(this.openCategories, category.id, true);\r\n    },\r\n    closeDropdown(category) {\r\n      this.$set(this.openCategories, category.id, false);\r\n    },\r\n    isOpen(category) {\r\n      return !!this.openCategories[category.id];\r\n    },\r\n    hasChildren(category) {\r\n      return category.children && category.children.length > 0;\r\n    },\r\n    getIcon(categoryName) {\r\n      const icons = {};\r\n      return icons[categoryName] || 'fas fa-box'; // Default icon\r\n    },\r\n  },\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.category-tree {\r\n  list-style-type: none;\r\n  padding-left: 0;\r\n  margin: 0;\r\n}\r\n\r\n.category-item {\r\n  margin: 5px 0;\r\n  padding: 8px 15px;\r\n  display: flex;\r\n  align-items: center;\r\n  border-radius: 4px;\r\n  cursor: pointer;\r\n  transition: background-color 0.3s;\r\n}\r\n\r\n.category-item:hover {\r\n  background-color: #e6f7ff;\r\n}\r\n\r\n.category-title {\r\n  display: flex;\r\n  align-items: center;\r\n  font-size: 14px;\r\n  color: #333;\r\n}\r\n\r\n.category-icon {\r\n  margin-right: 10px;\r\n  font-size: 18px;\r\n}\r\n\r\n.arrow-icon {\r\n  margin-left: auto;\r\n  font-size: 12px;\r\n  color: #007bff;\r\n}\r\n\r\n.category-dropdown {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 100%;\r\n  background-color: white;\r\n  border: 1px solid #ddd;\r\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);\r\n  z-index: 1000;\r\n  padding: 15px;\r\n  display: flex;\r\n  width: 1100px;\r\n  height: 100%;\r\n  flex-wrap: wrap;\r\n}\r\n\r\n.subcategories-container {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  width: 100%;\r\n}\r\n\r\n.subcategory-column {\r\n  flex: 1 1 30%;\r\n  margin-right: 20px;\r\n}\r\n\r\n.subcategory-column h4 {\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n  color: #000000;\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.subcategory-column h4 :hover{\r\n  color: #007bff;\r\n}\r\n\r\n.subcategory-column ul {\r\n  list-style-type: none;\r\n  padding-left: 0;\r\n}\r\n\r\n.subcategory-column ul li {\r\n  margin-bottom: 5px;\r\n  font-size: 12px;\r\n  color: #333;\r\n  cursor: pointer;\r\n}\r\n\r\n.subcategory-column ul li:hover {\r\n  color: #007bff;\r\n}\r\n</style>\r\n
+===================================================================
+diff --git a/vue-freelance/src/components/CategoryTree.vue b/vue-freelance/src/components/CategoryTree.vue
+--- a/vue-freelance/src/components/CategoryTree.vue	
++++ b/vue-freelance/src/components/CategoryTree.vue	
+@@ -7,19 +7,26 @@
+       @mouseover="openDropdown(category)"
+       @mouseleave="closeDropdown(category)"
+     >
+-      <div class="category-title">
+-        <i :class="getIcon(category.name)" class="category-icon"></i>
++      <div class="category-title" @click="navigateToCategory(category)">
+         {{ category.name }}
+         <span v-if="hasChildren(category)" class="arrow-icon">
+-          &#x25B6; <!-- Rightward arrow -->
++          &#x25B6;
+         </span>
+       </div>
+       <div v-if="isOpen(category)" class="category-dropdown">
++        <div class="subcategory-title">
++          <h2>{{ category.name }}</h2>
++          <router-link :to="`/catalog/${category.slug}/c${category.id}`" class="all-categories-link">
++            ВСЕ КАТЕГОРИИ
++          </router-link>
++        </div>
+         <div class="subcategories-container">
+-          <div class="subcategory-column" v-for="subcategory in category.children" :key="subcategory.id">
+-            <h4>{{ subcategory.name }}</h4>
++          <div v-for="subcategory in category.children" :key="subcategory.id" class="subcategory-column">
++            <h4 @click="navigateToSubcategory(subcategory)">
++              {{ subcategory.name }}
++            </h4>
+             <ul>
+-              <li v-for="child in subcategory.children" :key="child.id">
++              <li v-for="child in subcategory.children" :key="child.id" @click="navigateToSubsubcategory(child)">
+                 {{ child.name }}
+               </li>
+             </ul>
+@@ -66,11 +73,16 @@
+     hasChildren(category) {
+       return category.children && category.children.length > 0;
+     },
+-    getIcon(categoryName) {
+-      const icons = {};
+-      return icons[categoryName] || 'fas fa-box'; // Default icon
++    navigateToCategory(category) {
++      this.$router.push(`/catalog/${category.slug}/c${category.id}`);
+     },
+-  },
++    navigateToSubcategory(subcategory) {
++      this.$router.push(`/catalog/${subcategory.slug}/c${subcategory.id}`);
++    },
++    navigateToSubsubcategory(subsubcategory) {
++      this.$router.push(`/catalog/${subsubcategory.slug}/c${subsubcategory.id}`);
++    }
++  }
+ };
+ </script>
+ 
+@@ -79,6 +91,7 @@
+   list-style-type: none;
+   padding-left: 0;
+   margin: 0;
++  text-align: start;
+ }
+ 
+ .category-item {
+@@ -98,13 +111,8 @@
+ .category-title {
+   display: flex;
+   align-items: center;
+-  font-size: 14px;
+-  color: #333;
+-}
+-
+-.category-icon {
+-  margin-right: 10px;
+   font-size: 18px;
++  color: #333;
+ }
+ 
+ .arrow-icon {
+@@ -121,11 +129,22 @@
+   border: 1px solid #ddd;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+   z-index: 1000;
+-  padding: 15px;
++  padding: 20px;
+   display: flex;
+-  width: 1100px;
+-  height: 100%;
+-  flex-wrap: wrap;
++  width: 400px;
++  height: auto;
++  flex-direction: column;
++}
++
++.subcategory-title {
++  display: flex;
++  justify-content: space-between;
++  align-items: center;
++}
++
++.subcategory-title h2 {
++  cursor: pointer;
++  font-size: 24px;
+ }
+ 
+ .subcategories-container {
+@@ -140,13 +159,13 @@
+ }
+ 
+ .subcategory-column h4 {
+-  font-size: 14px;
++  font-size: 17px;
+   font-weight: bold;
+   color: #000000;
+   margin-bottom: 10px;
+ }
+ 
+-.subcategory-column h4 :hover{
++.subcategory-column h4:hover {
+   color: #007bff;
+ }
+ 
+@@ -157,7 +176,7 @@
+ 
+ .subcategory-column ul li {
+   margin-bottom: 5px;
+-  font-size: 12px;
++  font-size: 15px;
+   color: #333;
+   cursor: pointer;
+ }
+Index: vue-freelance/src/views/ProductView.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div class=\"product-view\">\r\n    <h1>Featured Products</h1>\r\n    <div class=\"container\">\r\n      <div class=\"product-grid\">\r\n        <ProductCard\r\n          v-for=\"product in products\"\r\n          :key=\"product.id\"\r\n          :product=\"product\"\r\n        />\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport axios from 'axios';\r\nimport ProductCard from '@/components/ProductCard.vue';\r\n\r\nexport default {\r\n  name: 'ProductView',\r\n  components: {\r\n    ProductCard,\r\n  },\r\n  data() {\r\n    return {\r\n      products: [], // List of products\r\n    };\r\n  },\r\n  created() {\r\n    this.fetchProducts();\r\n  },\r\n  methods: {\r\n    async fetchProducts() {\r\n      try {\r\n        const response = await axios.get('/api/products/');\r\n        this.products = response.data; // Fetch products from the backend\r\n      } catch (error) {\r\n        console.error('Error fetching products:', error);\r\n      }\r\n    },\r\n  },\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.product-view {\r\n  padding: 20px;\r\n  background-color: #f9f9f9; /* Light gray background for contrast */\r\n}\r\n\r\n.container { /* Maximum width for large screens */\r\n  margin: 0 auto; /* Center align container */\r\n  padding: 16px;\r\n  background-color: #fff; /* White background for the container */\r\n  border-radius: 8px; /* Rounded corners */\r\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */\r\n  display: flex;\r\n}\r\n\r\nh1 {\r\n  font-size: 24px; /* Font size for the header */\r\n  margin-bottom: 16px; /* Space below the header */\r\n  color: #333; /* Dark text color for readability */\r\n}\r\n\r\n.product-grid {\r\n  display: grid;\r\n  grid-template-columns: repeat(5, 20%); /* Responsive columns */\r\n  gap: 8px; /* Space between grid items */\r\n}\r\n</style>\r\n
+===================================================================
+diff --git a/vue-freelance/src/views/ProductView.vue b/vue-freelance/src/views/ProductView.vue
+--- a/vue-freelance/src/views/ProductView.vue	
++++ b/vue-freelance/src/views/ProductView.vue	
+@@ -15,7 +15,7 @@
+ 
+ <script>
+ import axios from 'axios';
+-import ProductCard from '@/components/ProductCard.vue';
++import ProductCard from '@/components/card/ProductCard.vue';
+ 
+ export default {
+   name: 'ProductView',
+@@ -47,6 +47,8 @@
+ .product-view {
+   padding: 20px;
+   background-color: #f9f9f9; /* Light gray background for contrast */
++  width: 1400px;
++  margin: 0 auto;
+ }
+ 
+ .container { /* Maximum width for large screens */
+@@ -66,6 +68,7 @@
+ 
+ .product-grid {
+   display: grid;
++  width: 100%;
+   grid-template-columns: repeat(5, 20%); /* Responsive columns */
+   gap: 8px; /* Space between grid items */
+ }
+Index: vue-freelance/src/components/LoginForm.vue
+===================================================================
+diff --git a/vue-freelance/src/components/LoginForm.vue b/vue-freelance/src/components/auth/LoginForm.vue
+rename from vue-freelance/src/components/LoginForm.vue
+rename to vue-freelance/src/components/auth/LoginForm.vue
+--- a/vue-freelance/src/components/LoginForm.vue	
++++ b/vue-freelance/src/components/auth/LoginForm.vue	
+@@ -1,38 +1,39 @@
+ <template>
+   <div class="auth-form-container">
+     <h3 class="text-center color-primary">Login Here</h3>
+-    <form @submit.prevent="login" class="auth-form">
++    <div v-if="loginError" class="color-danger">{{ loginError }}</div>
++    <form class="auth-form" @submit.prevent="login">
+       <div class="form-group">
+-        <label for="email">Email</label>
++        <label for="username">Логин</label>
+         <input
+-          @keyup="changing('email')"
+-          v-model="email"
++          id="username"
++          v-model="credentials.username"
+           class="form-control"
+-          :class="{ 'border-danger': hasEmailError }"
+-          type="email"
+-          id="email"
+-          placeholder="Enter your email"
++          :class="{ 'border-danger': hasUsernameError }"
++          type="text"
++          placeholder="Enter your login"
++          autocomplete="username"
+           required
+-          autocomplete="email"
+-        />
+-        <small class="color-danger">{{ emailError }}</small>
++          @keyup="changing('username')"
++        >
++        <small class="color-danger">{{ usernameError }}</small>
+       </div>
+       <div class="form-group">
+         <label for="password">Password</label>
+         <input
+-          @keyup="changing('password')"
+-          v-model="password"
++          id="password"
++          v-model="credentials.password"
+           class="form-control"
+           :class="{ 'border-danger': hasPasswordError }"
+           type="password"
+-          id="password"
+           placeholder="Enter your password"
++          autocomplete="current-password"
+           required
+-          autocomplete="current-password"
+-        />
++          @keyup="changing('password')"
++        >
+         <small class="color-danger">{{ passwordError }}</small>
+       </div>
+-      <button type="submit" class="btn btn-primary">Login</button>
++      <button class="btn btn-primary" type="submit">Login</button>
+       <p class="text-center">
+         Don't have an account?
+         <span class="color-primary signup-btn cursor-pointer" @click="showRegisterForm">Sign Up</span>
+@@ -42,50 +43,54 @@
+ </template>
+ 
+ <script>
++import { mapMutations } from 'vuex';
++import axios from 'axios';
+ export default {
+   data() {
+     return {
+-      email: '',
+-      password: '',
+-      emailError: '',
+-      hasEmailError: false,
++      credentials: {
++        username: '',
++        password: '',
++      },
++      usernameError: '',
++      hasUsernameError: false,
+       passwordError: '',
+       hasPasswordError: false,
++      loginError: '', // Для отображения ошибок при входе
+     }
+   },
+   methods: {
+-    login() {
+-      this.$axios.post('/api/login/', {
+-        email: this.email,
+-        password: this.password,
+-      }).then(response => {
+-        // Обработка успешного входа
+-        this.$store.commit('SET_TOKEN', response.data.access);
+-        // Перенаправление или дополнительная логика
+-        this.$router.push({ name: 'Home' });  // Пример перенаправления на главную страницу
+-      }).catch(error => {
+-        console.error('Error during login:', error.response ? error.response.data : error.message);
+-        // Обработка ошибок
+-        if (error.response && error.response.data) {
+-          this.emailError = error.response.data.email || '';
+-          this.passwordError = error.response.data.password || '';
++    ...mapMutations(['SET_TOKEN', 'SET_USER']),
++    async login() {
++      this.loginError = ''; // Сбрасываем ошибку
++      console.log('Credentials:', this.credentials);  // Логируем данные, которые отправляются
++
++      try {
++        const response = await axios.post('/api/login/', this.credentials);
++        console.log('Login response:', response);  // Логируем успешный ответ
++
++        const token = response.data.token;
++        const user = response.data.user;
++
++        this.SET_TOKEN(token);
++        this.SET_USER(user);
++
++        localStorage.setItem('token', token);
++        localStorage.setItem('user', JSON.stringify(user));
++
++        const redirectTo = this.$route.query.redirect || { name: 'Home' };
++        if (this.$route.fullPath !== this.$router.resolve(redirectTo).href) {
++          this.$router.push(redirectTo);
+         }
+-      });
+-    },
+-    handleErrors(data) {
+-      if (data.email) {
+-        this.emailError = data.email[0];
+-        this.hasEmailError = true;
+-      }
+-      if (data.password) {
+-        this.passwordError = data.password[0];
+-        this.hasPasswordError = true;
++      } catch (error) {
++        console.error('Login failed:', error);
++        this.loginError = 'Неверный логин или пароль.';  // Сообщение об ошибке
+       }
+     },
+     changing(field) {
+-      if (field === 'email') {
+-        this.emailError = '';
+-        this.hasEmailError = false;
++      if (field === 'username') {
++        this.usernameError = '';
++        this.hasUsernameError = false;
+       }
+       if (field === 'password') {
+         this.passwordError = '';
+@@ -93,7 +98,7 @@
+       }
+     },
+     showRegisterForm() {
+-      this.$emit('show-register'); // Событие для показа формы регистрации
++      this.$emit('show-register');
+     }
+   }
+ }
+@@ -113,7 +118,7 @@
+ .auth-form-container h3 {
+   margin-bottom: 20px;
+   font-size: 24px;
+-  color: #007bff; /* Primary color */
++  color: #007bff;
+ }
+ 
+ .form-group {
+@@ -159,7 +164,7 @@
+   width: 100%;
+   padding: 10px;
+   font-size: 16px;
+-  background-color: #007bff; /* Primary color */
++  background-color: #007bff;
+   color: #fff;
+   border: none;
+   border-radius: 5px;
+@@ -168,7 +173,7 @@
+ }
+ 
+ .btn:hover {
+-  background-color: #0056b3; /* Darker blue on hover */
++  background-color: #0056b3;
+ }
+ 
+ .text-center {
+Index: vue-freelance/src/components/ProductFilter.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <a-select\r\n      v-model=\"selectedBrand\"\r\n      placeholder=\"Select a brand\"\r\n      style=\"width: 250px; border-radius: 4px;\"\r\n      class=\"custom-select\"\r\n  >\r\n    <a-select-option\r\n        v-for=\"brand in brands\"\r\n        :key=\"brand.id\"\r\n        :value=\"brand.id\"\r\n    >\r\n      {{ brand.name }}\r\n    </a-select-option>\r\n  </a-select>\r\n</template>\r\n\r\n<script>\r\nimport axios from 'axios';\r\nimport {Select} from 'ant-design-vue';\r\n\r\nexport default {\r\n  components: {\r\n    'a-select': Select,\r\n    'a-select-option': Select.Option,\r\n  },\r\n  data() {\r\n    return {\r\n      selectedBrand: null,\r\n      brands: [],\r\n    };\r\n  },\r\n  created() {\r\n    this.fetchBrands();\r\n  },\r\n  methods: {\r\n    async fetchBrands() {\r\n      try {\r\n        const response = await axios.get('/api/brands/');\r\n        this.brands = response.data;\r\n      } catch (error) {\r\n        console.error('Error fetching brands:', error);\r\n      }\r\n    },\r\n  },\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.custom-select {\r\n  background-color: #f5f5f5;\r\n  border: 1px solid #d9d9d9;\r\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\r\n}\r\n\r\n.custom-select .ant-select-selector {\r\n  border-radius: 4px;\r\n  padding: 4px 8px;\r\n}\r\n\r\n.custom-select .ant-select-selection-item {\r\n  color: #333;\r\n}\r\n\r\n.custom-select .ant-select-arrow {\r\n  color: #1890ff;\r\n}\r\n\r\n.custom-select .ant-select-open .ant-select-arrow {\r\n  color: #40a9ff;\r\n}\r\n</style>\r\n
+===================================================================
+diff --git a/vue-freelance/src/components/ProductFilter.vue b/vue-freelance/src/components/ProductFilter.vue
+--- a/vue-freelance/src/components/ProductFilter.vue	
++++ b/vue-freelance/src/components/ProductFilter.vue	
+@@ -1,14 +1,14 @@
+ <template>
+   <a-select
+-      v-model="selectedBrand"
+-      placeholder="Select a brand"
+-      style="width: 250px; border-radius: 4px;"
+-      class="custom-select"
++    v-model="selectedBrand"
++    placeholder="Select a brand"
++    style="width: 250px; border-radius: 4px;"
++    class="custom-select"
+   >
+     <a-select-option
+-        v-for="brand in brands"
+-        :key="brand.id"
+-        :value="brand.id"
++      v-for="brand in brands"
++      :key="brand.id"
++      :value="brand.id"
+     >
+       {{ brand.name }}
+     </a-select-option>
+@@ -53,20 +53,20 @@
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ }
+ 
+-.custom-select .ant-select-selector {
++.custom-select {
+   border-radius: 4px;
+   padding: 4px 8px;
+ }
+ 
+-.custom-select .ant-select-selection-item {
++.custom-select {
+   color: #333;
+ }
+ 
+-.custom-select .ant-select-arrow {
++.custom-select {
+   color: #1890ff;
+ }
+ 
+-.custom-select .ant-select-open .ant-select-arrow {
++.custom-select {
+   color: #40a9ff;
+ }
+ </style>
+Index: vue-freelance/src/components/Pagination.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><template>\r\n  <div class=\"pagination\">\r\n    <button @click=\"changePage(currentPage - 1)\" :disabled=\"currentPage === 1\">Previous</button>\r\n    <button\r\n      v-for=\"page in pages\"\r\n      :key=\"page\"\r\n      @click=\"changePage(page)\"\r\n      :class=\"{ active: page === currentPage }\"\r\n    >\r\n      {{ page }}\r\n    </button>\r\n    <button @click=\"changePage(currentPage + 1)\" :disabled=\"currentPage === totalPages\">Next</button>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nexport default {\r\n  props: {\r\n    currentPage: {\r\n      type: Number,\r\n      required: true\r\n    },\r\n    totalPages: {\r\n      type: Number,\r\n      required: true\r\n    }\r\n  },\r\n  computed: {\r\n    pages() {\r\n      let pages = [];\r\n      for (let i = 1; i <= this.totalPages; i++) {\r\n        pages.push(i);\r\n      }\r\n      return pages;\r\n    }\r\n  },\r\n  methods: {\r\n    changePage(page) {\r\n      if (page > 0 && page <= this.totalPages) {\r\n        this.$emit('page-changed', page);\r\n      }\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style scoped>\r\n.pagination {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 5px;\r\n}\r\nbutton {\r\n  padding: 5px 10px;\r\n  border: 1px solid #ddd;\r\n  border-radius: 4px;\r\n  cursor: pointer;\r\n}\r\nbutton.active {\r\n  background-color: #007bff;\r\n  color: white;\r\n}\r\nbutton:disabled {\r\n  cursor: not-allowed;\r\n  opacity: 0.5;\r\n}\r\n</style>\r\n
+===================================================================
+diff --git a/vue-freelance/src/components/Pagination.vue b/vue-freelance/src/components/Pagination.vue
+--- a/vue-freelance/src/components/Pagination.vue	
++++ b/vue-freelance/src/components/Pagination.vue	
+@@ -1,15 +1,25 @@
+ <template>
+   <div class="pagination">
+-    <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1">Previous</button>
++    <button
++      :disabled="currentPage === 1"
++      @click="changePage(currentPage - 1)"
++    >
++      Previous
++    </button>
+     <button
+       v-for="page in pages"
+       :key="page"
+-      @click="changePage(page)"
+       :class="{ active: page === currentPage }"
++      @click="changePage(page)"
+     >
+       {{ page }}
+     </button>
+-    <button @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages">Next</button>
++    <button
++      :disabled="currentPage === totalPages"
++      @click="changePage(currentPage + 1)"
++    >
++      Next
++    </button>
+   </div>
+ </template>
+ 
+Index: vue-freelance/src/components/LoginModal.vue
+===================================================================
+diff --git a/vue-freelance/src/components/LoginModal.vue b/vue-freelance/src/components/auth/LoginModal.vue
+rename from vue-freelance/src/components/LoginModal.vue
+rename to vue-freelance/src/components/auth/LoginModal.vue
+--- a/vue-freelance/src/components/LoginModal.vue	
++++ b/vue-freelance/src/components/auth/LoginModal.vue	
+@@ -1,14 +1,19 @@
+ <template>
+   <div class="modal-overlay">
+     <div class="modal-content">
+-      <span class="close-btn" @click="close">&times;</span>
++      <span
++        class="close-btn"
++        @click="close"
++      >
++        &times;
++      </span>
+       <LoginForm @show-register="showRegisterForm" />
+     </div>
+   </div>
+ </template>
+ 
+ <script>
+-import LoginForm from '@/components/LoginForm.vue';
++import LoginForm from '@/components/auth/LoginForm.vue';
+ 
+ export default {
+   name: "LoginModal",
+@@ -59,4 +64,4 @@
+ .close-btn:hover {
+   color: #000;
+ }
+-</style>
++</style>
+\ No newline at end of file
