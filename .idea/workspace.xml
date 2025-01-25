@@ -9,114 +9,211 @@
       <change afterPath="$PROJECT_DIR$/djangoProject1/media/images/category/Смартфоны_и_ГаджетыАксессуары_для_телефонов.jpeg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/djangoProject1/media/images/category/Смартфоны_и_ГаджетыАксессуары_для_телефоновНаушники.jpeg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/djangoProject1/media/images/category/Смартфоны_и_ГаджетыСмартфоны_и_Гаджеты.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/djangoProject1/media/images/image/images1.jpeg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/djangoProject1/media/images/product/Sony_WH-1000XM5.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue-freelance/src/components/CategoryCard.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue-freelance/src/components/SubcategoryCard.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue-freelance/src/components/SubsubcategoryCard.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue-freelance/src/views/CategoryHierarchyView.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/api/auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/api/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/api/instance.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/components/auth/RegisterForm.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/components/card/Card.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/components/card/CategoryCard.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/components/card/SubcategoryCard.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/components/card/SubsubcategoryCard.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/plugins/api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/store/apiClient.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/store/user.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/vue-freelance/src/views/CategoryView.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/views/ProfileSettingsView.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue-freelance/src/views/ProfileView.vue" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/vue-freelance/src/views/SubcategoryView.vue" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/vue-freelance/src/views/SubsubcategoryView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0a68f32b-2e4b-456d-8253-4e78ffdedd61.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/864d2ad8-7d7b-45a0-acb1-2906db217ab2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/864d2ad8-7d7b-45a0-acb1-2906db217ab2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/864d2ad8-7d7b-45a0-acb1-2906db217ab2/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/864d2ad8-7d7b-45a0-acb1-2906db217ab2/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Apple_Watch_Series_8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Apple_iPad_Pro_12.9.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Dell_XPS_15.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Google_Pixel_8_Pro.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/IPhone_13_Pro.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/IPhone_14.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/IPhone_15_Pro_Max.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/OnePlus_Nord_3.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Samsung_Galaxy_Buds_Pro.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Samsung_Galaxy_S23_Ultra.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Sony_WH-1000XM5.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Xiaomi_Mi_Band_8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Xiaomi_Redmi_Note_12.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Без_названия.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Бытовая_техника.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Бытовые_техникиАксессуары.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Ноутбуки_и_КомпьютерыАксессуары_для_компьютера.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Ноутбуки_и_КомпьютерыАксессуары_для_компьютера_AbxMOTg.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Ноутбуки_и_КомпьютерыКомплектующие.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Ноутбуки_и_КомпьютерыПериферийные_устройства.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Ноутбуки_и_Компютеры.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Смартфоны_и_Гаджеты.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Смартфоны_и_ГаджетыАксессуары_для_телефонов.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Смартфоны_и_ГаджетыАксессуары_для_телефоновНаушники.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Смартфоны_и_ГаджетыПланшеты_и_электронные_книги.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Смартфоны_и_ГаджетыПланшеты_и_электронные_книгиПланшеты.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Смартфоны_и_ГаджетыСмарт-устройства.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Смартфоны_и_ГаджетыСмарт-устройстваСмарт-часы.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Смартфоны_и_ГаджетыСмартфоны_и_Гаджеты.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Смартфоны_и_ГаджетыСмартфоны_и_ГаджетыСмартфоны.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Телевизоры_аудио_и_видео.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Телевизоры_аудио_и_видеоАудио_и_видео_техника.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29_[Changes]1/Телевизоры_аудио_и_видеоПроекторы.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_13_29__Changes_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Apple_Watch_Series_8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Apple_iPad_Pro_12.9.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Dell_XPS_15.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Google_Pixel_8_Pro.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/IPhone_13_Pro.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/IPhone_14.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/IPhone_15_Pro_Max.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/OnePlus_Nord_3.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Samsung_Galaxy_Buds_Pro.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Samsung_Galaxy_S23_Ultra.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Sony_WH-1000XM5.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Xiaomi_Mi_Band_8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Xiaomi_Redmi_Note_12.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Без_названия.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Бытовая_техника.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Бытовая_техника1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Бытовые_техникиАксессуары.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Бытовые_техникиАксессуары1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Бытовые_техникиБытовой_техника.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Ноутбуки_и_Компьютеры.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Ноутбуки_и_КомпьютерыАксессуары_для_компьютера.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Ноутбуки_и_КомпьютерыАксессуары_для_компьютера_AbxMOTg.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Ноутбуки_и_КомпьютерыКомплектующие.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Ноутбуки_и_КомпьютерыПериферийные_устройства.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Ноутбуки_и_Компютеры.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Смартфоны_и_Гаджеты.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Смартфоны_и_ГаджетыАксессуары_для_телефонов.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Смартфоны_и_ГаджетыАксессуары_для_телефоновНаушники.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Смартфоны_и_ГаджетыПланшеты_и_электронные_книги.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Смартфоны_и_ГаджетыПланшеты_и_электронные_книгиПланшеты.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Смартфоны_и_ГаджетыСмарт-устройства.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Смартфоны_и_ГаджетыСмарт-устройстваСмарт-часы.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Смартфоны_и_ГаджетыСмартфоны_и_Гаджеты.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Смартфоны_и_ГаджетыСмартфоны_и_ГаджетыСмартфоны.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Телевизоры_аудио_и_видео.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Телевизоры_аудио_и_видеоАудио_и_видео_техника.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34_[Changes]/Телевизоры_аудио_и_видеоПроекторы.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_34__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Apple_Watch_Series_8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Apple_iPad_Pro_12.9.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Dell_XPS_15.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Google_Pixel_8_Pro.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/IPhone_13_Pro.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/IPhone_14.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/IPhone_15_Pro_Max.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/OnePlus_Nord_3.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Samsung_Galaxy_Buds_Pro.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Samsung_Galaxy_S23_Ultra.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Sony_WH-1000XM5.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Xiaomi_Mi_Band_8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Xiaomi_Redmi_Note_12.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Без_названия.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Бытовая_техника.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Бытовая_техника1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Бытовые_техникиАксессуары.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Бытовые_техникиАксессуары1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Бытовые_техникиБытовой_техника.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Ноутбуки_и_Компьютеры.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Ноутбуки_и_КомпьютерыАксессуары_для_компьютера.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Ноутбуки_и_КомпьютерыАксессуары_для_компьютера_AbxMOTg.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Ноутбуки_и_КомпьютерыКомплектующие.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Ноутбуки_и_КомпьютерыПериферийные_устройства.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Ноутбуки_и_Компютеры.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Смартфоны_и_Гаджеты.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Смартфоны_и_ГаджетыАксессуары_для_телефонов.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Смартфоны_и_ГаджетыАксессуары_для_телефоновНаушники.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Смартфоны_и_ГаджетыПланшеты_и_электронные_книги.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Смартфоны_и_ГаджетыПланшеты_и_электронные_книгиПланшеты.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Смартфоны_и_ГаджетыСмарт-устройства.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Смартфоны_и_ГаджетыСмарт-устройстваСмарт-часы.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Смартфоны_и_ГаджетыСмартфоны_и_Гаджеты.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Смартфоны_и_ГаджетыСмартфоны_и_ГаджетыСмартфоны.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Телевизоры_аудио_и_видео.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Телевизоры_аудио_и_видеоАудио_и_видео_техника.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35_[Changes]/Телевизоры_аудио_и_видеоПроекторы.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_35__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Apple_Watch_Series_8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Apple_iPad_Pro_12.9.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Dell_XPS_15.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Google_Pixel_8_Pro.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/IPhone_13_Pro.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/IPhone_14.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/IPhone_15_Pro_Max.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/OnePlus_Nord_3.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Samsung_Galaxy_Buds_Pro.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Samsung_Galaxy_S23_Ultra.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Sony_WH-1000XM5.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Xiaomi_Mi_Band_8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Xiaomi_Redmi_Note_12.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Без_названия.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Бытовая_техника.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Бытовая_техника1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Бытовые_техникиАксессуары.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Бытовые_техникиАксессуары1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Бытовые_техникиБытовой_техника.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Ноутбуки_и_Компьютеры.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Ноутбуки_и_КомпьютерыАксессуары_для_компьютера.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Ноутбуки_и_КомпьютерыАксессуары_для_компьютера_AbxMOTg.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Ноутбуки_и_КомпьютерыКомплектующие.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Ноутбуки_и_КомпьютерыПериферийные_устройства.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Ноутбуки_и_Компютеры.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Смартфоны_и_Гаджеты.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Смартфоны_и_ГаджетыАксессуары_для_телефонов.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Смартфоны_и_ГаджетыАксессуары_для_телефоновНаушники.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Смартфоны_и_ГаджетыПланшеты_и_электронные_книги.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Смартфоны_и_ГаджетыПланшеты_и_электронные_книгиПланшеты.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Смартфоны_и_ГаджетыСмарт-устройства.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Смартфоны_и_ГаджетыСмарт-устройстваСмарт-часы.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Смартфоны_и_ГаджетыСмартфоны_и_Гаджеты.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Смартфоны_и_ГаджетыСмартфоны_и_ГаджетыСмартфоны.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Телевизоры_аудио_и_видео.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Телевизоры_аудио_и_видеоАудио_и_видео_техника.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36_[Changes]/Телевизоры_аудио_и_видеоПроекторы.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_13_36__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_20_49_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_09_2024_20_49__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Без_названия.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Бытовая_техника.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Бытовые_техникиАксессуары.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Ноутбуки_и_КомпьютерыАксессуары_для_компьютера.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Ноутбуки_и_КомпьютерыАксессуары_для_компьютера_AbxMOTg.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Ноутбуки_и_КомпьютерыКомплектующие.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Ноутбуки_и_КомпьютерыПериферийные_устройства.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Ноутбуки_и_Компютеры.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_Гаджеты.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыАксессуары_для_телефонов.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыАксессуары_для_телефоновНаушники.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыПланшеты_и_электронные_книги.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыПланшеты_и_электронные_книгиПланшеты.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыСмарт-устройства.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыСмарт-устройстваСмарт-часы.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыСмартфоны_и_Гаджеты.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Смартфоны_и_ГаджетыСмартфоны_и_ГаджетыСмартфоны.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Телевизоры_аудио_и_видео.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Телевизоры_аудио_и_видеоАудио_и_видео_техника.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/category/images/Телевизоры_аудио_и_видеоПроекторы.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/images/images1.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/images/images1_A20gEJA.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/images/images1_vM0auWq.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject1/djangoProject1/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/djangoProject1/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject1/media/images/images1.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/media/images/image/images1.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/djangoProject1/media/images/images2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/images/images2_lyZz2Sq.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/images/images2_m5Z8UZe.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/djangoProject1/media/images/images3.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/images/images3_tgBzyo6.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/images/images3_wK24H7m.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Apple Watch Series 8.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Apple_Watch_Series_8.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Apple_iPad_Pro_12.9.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Dell XPS 15.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Dell_XPS_15.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Google Pixel 8 Pro.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Google_Pixel_8_Pro.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/IPhone 13 Pro.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/IPhone 15 Pro Max.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/IPhone_13_Pro.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/IPhone_15_Pro_Max.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Iphone_14.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Iphone_14_FCYM75y.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Iphone_14_FCYM75y_D03uifm.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/OnePlus Nord 3.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/OnePlus_Nord_3.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Samsung Galaxy Buds Pro.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Samsung Galaxy S24 Ultra.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Samsung MC28M6055CK.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Samsung_Galaxy_Buds_Pro.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Samsung_Galaxy_S24_Ultra.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Samsung_Galaxy_S24_Ultra_aRARJOW.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Sony WH-1000XM5.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Sony_WH-1000XM5.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Xiaomi Mi Band 8.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Xiaomi Redmi Note 12.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Xiaomi_Mi_Band_8.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/Xiaomi_Redmi_Note_12.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/Apple_Watch_Series_8.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/Apple_iPad_Pro_12.9.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/Dell_XPS_15.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/Google_Pixel_8_Pro.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/IPhone_13_Pro.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/IPhone_14.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/IPhone_15_Pro_Max.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/OnePlus_Nord_3.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/Samsung_Galaxy_Buds_Pro.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/Samsung_Galaxy_S23_Ultra.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/Sony_WH-1000XM5.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/Xiaomi_Mi_Band_8.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/media/products/images/Xiaomi_Redmi_Note_12.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/users/migrations/0002_remove_brand_img.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/users/migrations/0003_category_img.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/users/migrations/0004_rename_img_image_image.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/users/migrations/0005_remove_category_img_remove_product_img_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/users/migrations/0006_rename_image_category_img_rename_image_image_img_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject1/users/migrations/0007_alter_product_img.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject1/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/users/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/djangoProject1/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/users/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/djangoProject1/users/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/users/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/djangoProject1/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/users/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/djangoProject1/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject1/users/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/CategoryTree.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/CategoryTree.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/Header.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/ImageSlider.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/ImageSlider.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/LoginForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/LoginModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/LoginModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/Modal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/Modal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/auth/LoginForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/LoginModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/auth/LoginModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/Modal.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/Pagination.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/Pagination.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/ProductCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/ProductCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/ProductCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/card/ProductCard.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/ProductDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/ProductDetail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/ProductFilter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/ProductFilter.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/RegisterForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/RegisterForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/RegisterModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/RegisterModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/RegisterForm.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/RegisterModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/auth/RegisterModal.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/components/UnderHeader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/components/UnderHeader.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/store/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/views/CategoryTreeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/views/CategoryTreeView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/views/Favorites.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/views/Favorites.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-freelance/src/views/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/views/Home.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/views/ImageInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/views/ImageInfo.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/views/NotFound.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/views/NotFound.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-freelance/src/views/ProductList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-freelance/src/views/ProductList.vue" afterDir="false" />
@@ -135,17 +232,31 @@
       <list>
         <option value="Python Script" />
         <option value="Vue Composition API Component" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$/vue-freelance" source="origin/master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
-        <entry key="$PROJECT_DIR$/djangoProject1" value="master" />
+        <entry key="$PROJECT_DIR$/djangoProject1" value="backend" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/vue-freelance" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/djangoProject1" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -171,34 +282,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Python.manage.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/bekzat/PycharmProjects&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.serve.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PyCharm 2024.1.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python.manage.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/bekzat/PycharmProjects/vue-freelance/package.json",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "npm.serve.executor": "Run",
+    "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2024.1.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory",
+      "repository"
     ],
-    &quot;vue.recent.templates&quot;: [
-      &quot;Vue Composition API Component&quot;
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ],
+    "vue.recent.templates": [
+      "Vue Composition API Component"
     ]
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\bekzat\PycharmProjects\vue-freelance\src\components\auth" />
+      <recent name="C:\Users\bekzat\PycharmProjects\vue-freelance\src\components\card" />
+    </key>
+  </component>
   <component name="RunManager" selected="Python.manage">
     <configuration name="manage" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="PycharmProjects" />
@@ -258,6 +382,11 @@
       <envs />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Django Server.PycharmProjects" />
+      <item itemvalue="npm.serve" />
+      <item itemvalue="Python.manage" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="npm.serve" />
@@ -309,6 +438,29 @@
       <workItem from="1726077588733" duration="6532000" />
       <workItem from="1726142763627" duration="5541000" />
       <workItem from="1726251435903" duration="13325000" />
+      <workItem from="1726566218983" duration="4005000" />
+      <workItem from="1726573595187" duration="267000" />
+      <workItem from="1726574981153" duration="14000" />
+      <workItem from="1726644599130" duration="9824000" />
+      <workItem from="1726934151968" duration="2816000" />
+      <workItem from="1727287995926" duration="2816000" />
+      <workItem from="1727767416266" duration="1379000" />
+      <workItem from="1727776759705" duration="4000" />
+      <workItem from="1728031927048" duration="2277000" />
+      <workItem from="1728748551148" duration="5939000" />
+      <workItem from="1728811557004" duration="37000" />
+      <workItem from="1729099019559" duration="4050000" />
+      <workItem from="1730387971116" duration="757000" />
+      <workItem from="1730698549866" duration="153000" />
+      <workItem from="1731512375624" duration="8000" />
+      <workItem from="1731516598372" duration="1722000" />
+      <workItem from="1731681904315" duration="4986000" />
+      <workItem from="1731748482905" duration="12772000" />
+      <workItem from="1731934772892" duration="7093000" />
+      <workItem from="1733568520638" duration="9663000" />
+      <workItem from="1733651224880" duration="2676000" />
+      <workItem from="1736763509520" duration="362000" />
+      <workItem from="1737800838675" duration="697000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit&#10;Login error">
       <option name="closed" value="true" />
@@ -342,6 +494,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Initial commit&#10;Login error" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/PycharmProjects$manage.coverage" NAME="manage Coverage Results" MODIFIED="1726251490966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\bekzat\PycharmProjects\djangoProject1\djangoProject1" />
+    <SUITE FILE_PATH="coverage/PycharmProjects$manage.coverage" NAME="manage Coverage Results" MODIFIED="1736763563591" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\bekzat\PycharmProjects\djangoProject1\djangoProject1" />
   </component>
 </project>
